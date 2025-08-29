@@ -21,13 +21,5 @@ Flowers are saved → Your garden grows 🌳
 - 👾 **Animated pixel buddy** that walks in with your message  
 
 ---
-
-## 🛠️ Tech Stack
-- 🎨 **Frontend:** React + TailwindCSS (pixel fonts, sprite animations)  
-- ☁️ **Backend:** Firebase (Firestore for saving progress)  
-- 🚀 **Hosting:** Vercel / Netlify  
-
----
-
 ★ Tip: Healthy habits = More flowers = Bigger garden = Happy player! ★
 
