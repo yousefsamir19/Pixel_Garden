@@ -1,145 +1,251 @@
-/* hud bar */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url("Assets/Backgroud.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .hud {
-background-color: #FEFAE0;
-border-radius: 90px;
-display: flex;
-align-items: center;
-margin-top: 50px;
-margin-left: 1150px;
-margin-right: 50px;
+  background-color: #a3b18a;
+  position: fixed;
+  top: 1rem;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
 }
 
-#avatar{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 20px;
-    margin-right: 7px;
+#flowerIcon,
+#duckIcon {
+  margin-left: 10px;
 }
 
-#flowerIcon{
-    margin-left: 30px;
-    margin-right: 7px;
+.pixel-corners,
+.pixel-corners--wrapper {
+  clip-path: polygon(
+    0px calc(100% - 2px),
+    6px calc(100% - 2px),
+    6px calc(100% + 4px),
+    12px calc(100% + 4px),
+    12px calc(100% + 10px),
+    calc(100% - 12px) calc(100% + 10px),
+    calc(100% - 12px) calc(100% + 4px),
+    calc(100% - 6px) calc(100% + 4px),
+    calc(100% - 6px) calc(100% - 2px),
+    100% calc(100% - 2px),
+    100% 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 0px,
+    12px 0px,
+    12px 6px,
+    6px 6px,
+    6px 12px,
+    0px 12px
+  );
+  position: relative;
 }
 
-#duckIcon{
-    margin-left: 30px;
-    margin-right: 7px;
+.pixel-corners:active,
+.pixel-corners--wrapper:active {
+  clip-path: polygon(
+    0px calc(100% - 12px),
+    6px calc(100% - 12px),
+    6px calc(100% - 6px),
+    12px calc(100% - 6px),
+    12px 100%,
+    calc(100% - 12px) 100%,
+    calc(100% - 12px) calc(100% - 6px),
+    calc(100% - 6px) calc(100% - 6px),
+    calc(100% - 6px) calc(100% - 12px),
+    100% calc(100% - 12px),
+    100% 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 0px,
+    12px 0px,
+    12px 6px,
+    6px 6px,
+    6px 12px,
+    0px 12px
+  );
+  position: relative;
 }
 
-/* Start Button Styles */
+.pixel-corners {
+  border: 6px solid transparent;
+}
+
+.pixel-corners--wrapper {
+  width: fit-content;
+  height: fit-content;
+}
+
+.pixel-corners--wrapper .pixel-corners {
+  display: block;
+  clip-path: polygon(
+    6px 12px,
+    12px 12px,
+    12px 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 6px),
+    12px calc(100% - 6px),
+    12px calc(100% - 12px),
+    6px calc(100% - 12px)
+  );
+}
+
+.pixel-corners::after,
+.pixel-corners--wrapper::after {
+  content: "";
+  position: absolute;
+  clip-path: polygon(
+    0px calc(100% - 2px),
+    6px calc(100% - 2px),
+    6px calc(100% + 4px),
+    12px calc(100% + 4px),
+    12px calc(100% + 10px),
+    calc(100% - 12px) calc(100% + 10px),
+    calc(100% - 12px) calc(100% + 4px),
+    calc(100% - 6px) calc(100% + 4px),
+    calc(100% - 6px) calc(100% - 2px),
+    100% calc(100% - 2px),
+    100% 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 0px,
+    12px 0px,
+    12px 6px,
+    6px 6px,
+    6px 12px,
+    0px 12px,
+    0px 50%,
+    6px 50%,
+    6px 12px,
+    12px 12px,
+    12px 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 6px),
+    12px calc(100% - 6px),
+    12px calc(100% - 12px),
+    6px calc(100% - 12px),
+    6px 50%,
+    0px 50%
+  );
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000000;
+  display: block;
+  pointer-events: none;
+}
+
+.pixel-corners:active::after,
+.pixel-corners--wrapper:active::after {
+  content: "";
+  position: absolute;
+  clip-path: polygon(
+    0px calc(100% - 12px),
+    6px calc(100% - 12px),
+    6px calc(100% - 6px),
+    12px calc(100% - 6px),
+    12px 100%,
+    calc(100% - 12px) 100%,
+    calc(100% - 12px) calc(100% - 6px),
+    calc(100% - 6px) calc(100% - 6px),
+    calc(100% - 6px) calc(100% - 12px),
+    100% calc(100% - 12px),
+    100% 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 0px,
+    12px 0px,
+    12px 6px,
+    6px 6px,
+    6px 12px,
+    0px 12px,
+    0px 50%,
+    6px 50%,
+    6px 12px,
+    12px 12px,
+    12px 6px,
+    calc(100% - 12px) 6px,
+    calc(100% - 12px) 12px,
+    calc(100% - 6px) 12px,
+    calc(100% - 6px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 6px),
+    12px calc(100% - 6px),
+    12px calc(100% - 12px),
+    6px calc(100% - 12px),
+    6px 50%,
+    0px 50%
+  );
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000000;
+  display: block;
+  pointer-events: none;
+}
+
+.pixel-corners::after {
+  margin: -6px;
+}
+
 .start-button-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .start-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.2s ease;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 3rem;
+  background-color: #93da97;
+  border: none;
+  padding: 1rem;
+  box-shadow: 0px 10px 0px 0px black;
+  cursor: pointer;
 }
 
 .start-button:hover {
-    transform: scale(1.05);
+  background-color: #5e936c;
 }
 
 .start-button:active {
-    transform: scale(0.95);
-}
-
-.start-button-img {
-    max-width: 200px;
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.start-text {
-    font-family: 'Arial', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-/* backgroud */
-body {
-    background: url("Assets/backgroud.jpeg");
-    background-repeat: no-repeat;
-    background-position: center ;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hud {
-        margin-left: 20px;
-        margin-right: 20px;
-        padding: 10px;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    #avatar {
-        width: 40px;
-        height: 40px;
-        margin-left: 10px;
-        margin-right: 5px;
-    }
-    
-    #flowerIcon, #duckIcon {
-        width: 30px;
-        height: 30px;
-        margin-left: 15px;
-        margin-right: 5px;
-    }
-    
-    .start-button-img {
-        max-width: 150px;
-    }
-    
-    .start-text {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hud {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 20px;
-        border-radius: 45px;
-    }
-    
-    #avatar {
-        width: 35px;
-        height: 35px;
-        margin-left: 8px;
-        margin-right: 4px;
-    }
-    
-    #flowerIcon, #duckIcon {
-        width: 25px;
-        height: 25px;
-        margin-left: 10px;
-        margin-right: 4px;
-    }
-    
-    .start-button-img {
-        max-width: 120px;
-    }
-    
-    .start-text {
-        font-size: 14px;
-    }
+  transform: translateY(10px);
+  box-shadow: none;
 }
