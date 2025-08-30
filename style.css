@@ -1,0 +1,145 @@
+/* hud bar */
+
+.hud {
+background-color: #FEFAE0;
+border-radius: 90px;
+display: flex;
+align-items: center;
+margin-top: 50px;
+margin-left: 1150px;
+margin-right: 50px;
+}
+
+#avatar{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    margin-right: 7px;
+}
+
+#flowerIcon{
+    margin-left: 30px;
+    margin-right: 7px;
+}
+
+#duckIcon{
+    margin-left: 30px;
+    margin-right: 7px;
+}
+
+/* Start Button Styles */
+.start-button-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.start-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.start-button:hover {
+    transform: scale(1.05);
+}
+
+.start-button:active {
+    transform: scale(0.95);
+}
+
+.start-button-img {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.start-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* backgroud */
+body {
+    background: url("Assets/backgroud.jpeg");
+    background-repeat: no-repeat;
+    background-position: center ;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hud {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 10px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    #avatar {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+    
+    #flowerIcon, #duckIcon {
+        width: 30px;
+        height: 30px;
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+    
+    .start-button-img {
+        max-width: 150px;
+    }
+    
+    .start-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hud {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 20px;
+        border-radius: 45px;
+    }
+    
+    #avatar {
+        width: 35px;
+        height: 35px;
+        margin-left: 8px;
+        margin-right: 4px;
+    }
+    
+    #flowerIcon, #duckIcon {
+        width: 25px;
+        height: 25px;
+        margin-left: 10px;
+        margin-right: 4px;
+    }
+    
+    .start-button-img {
+        max-width: 120px;
+    }
+    
+    .start-text {
+        font-size: 14px;
+    }
+}
