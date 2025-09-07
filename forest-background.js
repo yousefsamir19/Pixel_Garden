@@ -8,27 +8,27 @@
 //     this.currentX = 0;
 //     this.targetX = 0;
 //     this.animationId = null;
-    
+
 //     this.init();
 //   }
 
 //   init() {
 //     // Start the animation loop
 //     this.animate();
-    
+
 //     // Add keyboard event listeners for character movement
 //     this.addMovementListeners();
-    
+
 //     // Add touch/mouse support for mobile
 //     this.addTouchSupport();
 //   }
 
 //   addMovementListeners() {
 //     let isKeyPressed = false;
-    
+
 //     document.addEventListener('keydown', (e) => {
-//       if (!isKeyPressed && (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
-//                            e.key === 'a' || e.key === 'd' || 
+//       if (!isKeyPressed && (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+//                            e.key === 'a' || e.key === 'd' ||
 //                            e.key === 'A' || e.key === 'D')) {
 //         isKeyPressed = true;
 //         this.startMoving();
@@ -36,8 +36,8 @@
 //     });
 
 //     document.addEventListener('keyup', (e) => {
-//       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
-//           e.key === 'a' || e.key === 'd' || 
+//       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+//           e.key === 'a' || e.key === 'd' ||
 //           e.key === 'A' || e.key === 'D') {
 //         isKeyPressed = false;
 //         this.stopMoving();
@@ -59,7 +59,7 @@
 //       if (isTouching) {
 //         const touchX = e.touches[0].clientX;
 //         const deltaX = touchX - touchStartX;
-        
+
 //         // Determine movement direction based on touch
 //         if (Math.abs(deltaX) > 10) {
 //           this.targetX += deltaX * 0.01;
@@ -101,11 +101,11 @@
 //     this.layers.forEach(layer => {
 //       const speed = parseFloat(layer.dataset.speed);
 //       let x = 0;
-      
+
 //       if (!this.isMoving) {
 //         // Only apply parallax during idle state
 //         x = this.currentX * speed;
-        
+
 //         // Implement infinite scrolling - reset position when reaching edge
 //         const layerWidth = window.innerWidth; // Width of one image
 //         if (x > layerWidth) {
@@ -114,7 +114,7 @@
 //           x = x + layerWidth;
 //         }
 //       }
-      
+
 //       layer.style.transform = `translateX(${x}px)`;
 //     });
 
@@ -147,19 +147,23 @@
 // // Export for use in other scripts
 // if (typeof module !== 'undefined' && module.exports) {
 //   module.exports = ForestBackground;
-// 
+//
 
-document.getElementsByClassName(`start-button pixel-corners--wrapper`)[0].onclick = function(){
+document.getElementsByClassName(
+  `start-button pixel-corners--wrapper`
+)[0].onclick = function () {
   document.getElementById(`nameInput`).id = `nameInput-after`;
-  document.getElementsByClassName(`start-button-container`)[0].className = `start-button-container-after`;
-}
+  document.getElementsByClassName(
+    `start-button-container`
+  )[0].className = `start-button-container-after`;
+};
 
 let username;
 
-document.getElementsByClassName('start-button pixel-corners--wrapper')[1].onclick = function(){
-  username = document.getElementById('name').value;
-  document.getElementById('lab').textContent = `Hallo ${username}`;
-  document.getElementById(`playerName`).textContent= username;
-}
-
-
+document.getElementsByClassName(
+  "start-button pixel-corners--wrapper"
+)[1].onclick = function () {
+  username = document.getElementById("name").value;
+  document.getElementById("lab").textContent = `Hello ${username}`;
+  document.getElementById(`playerName`).textContent = username;
+};

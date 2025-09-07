@@ -47,18 +47,42 @@ body {
 }
 
 /* Layer positioning for parallax effect */
-.layer-0 { z-index: 1; }
-.layer-1 { z-index: 2; }
-.layer-2 { z-index: 3; }
-.layer-3 { z-index: 4; }
-.layer-4 { z-index: 5; }
-.lights-1 { z-index: 6; }
-.lights-2 { z-index: 7; }
-.layer-5 { z-index: 8; }
-.layer-6 { z-index: 9; }
-.layer-7 { z-index: 10; }
-.layer-8 { z-index: 11; }
-.layer-9 { z-index: 12; }
+.layer-0 {
+  z-index: 1;
+}
+.layer-1 {
+  z-index: 2;
+}
+.layer-2 {
+  z-index: 3;
+}
+.layer-3 {
+  z-index: 4;
+}
+.layer-4 {
+  z-index: 5;
+}
+.lights-1 {
+  z-index: 6;
+}
+.lights-2 {
+  z-index: 7;
+}
+.layer-5 {
+  z-index: 8;
+}
+.layer-6 {
+  z-index: 9;
+}
+.layer-7 {
+  z-index: 10;
+}
+.layer-8 {
+  z-index: 11;
+}
+.layer-9 {
+  z-index: 12;
+}
 
 .hud {
   display: none;
@@ -297,27 +321,39 @@ body {
 }
 
 #nameInput-after input {
-background-color: transparent;
-border-color: black;
-border-radius: 45px;
-font-size: xx-large;
-text-align: center;
-color: aliceblue;
-padding: 10px;
-display: block;
-width: 300px;
-height:100px;
+  background-color: honeydew;
+  border-radius: 999px;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  display: block;
+  border: none;
 }
 
 #nameInput-after {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  position: relative;
+  gap: 1rem;
+}
+
+#nameInput-after > button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 1rem;
 }
 
 #nameInput {
   display: none;
 }
 
-#nameInput-after label{
+#nameInput-after label {
   color: honeydew;
   font-size: xx-large;
   justify-content: center;
