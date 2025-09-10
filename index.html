@@ -3,12 +3,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Habit Reminder</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/startPage.css" />
   </head>
   <body>
     <!-- Forest Background Layers -->
     <div class="forest-background">
-      <div class="bg-layer layer-0" data-speed="0.1">
+      <div class="bg-layer layer-0" data-speed="0.2">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0011_0.png"
           alt="Forest Layer 0"
@@ -18,7 +19,7 @@
           alt="Forest Layer 0"
         />
       </div>
-      <div class="bg-layer layer-1" data-speed="0.1">
+      <div class="bg-layer layer-1" data-speed="0.2">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0010_1.png"
           alt="Forest Layer 1"
@@ -28,7 +29,7 @@
           alt="Forest Layer 1"
         />
       </div>
-      <div class="bg-layer layer-2" data-speed="0.12">
+      <div class="bg-layer layer-2" data-speed="0.22">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0009_2.png"
           alt="Forest Layer 2"
@@ -38,7 +39,7 @@
           alt="Forest Layer 2"
         />
       </div>
-      <div class="bg-layer layer-3" data-speed="0.15">
+      <div class="bg-layer layer-3" data-speed="0.25">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0008_3.png"
           alt="Forest Layer 3"
@@ -48,7 +49,7 @@
           alt="Forest Layer 3"
         />
       </div>
-      <div class="bg-layer layer-4" data-speed="0.15">
+      <div class="bg-layer layer-4" data-speed="0.25">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0006_4.png"
           alt="Forest Layer 4"
@@ -58,7 +59,7 @@
           alt="Forest Layer 4"
         />
       </div>
-      <div class="bg-layer layer-5" data-speed="0.15">
+      <div class="bg-layer layer-5" data-speed="0.25">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0005_5.png"
           alt="Forest Layer 5"
@@ -68,7 +69,7 @@
           alt="Forest Layer 5"
         />
       </div>
-      <div class="bg-layer layer-6" data-speed="0.14">
+      <div class="bg-layer layer-6" data-speed="0.24">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0003_6.png"
           alt="Forest Layer 6"
@@ -78,7 +79,7 @@
           alt="Forest Layer 6"
         />
       </div>
-      <div class="bg-layer layer-7" data-speed="0.06">
+      <div class="bg-layer layer-7" data-speed="0.16">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0002_7.png"
           alt="Forest Layer 7"
@@ -88,7 +89,7 @@
           alt="Forest Layer 7"
         />
       </div>
-      <div class="bg-layer layer-8" data-speed="0.06">
+      <div class="bg-layer layer-8" data-speed="0.16">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0001_8.png"
           alt="Forest Layer 8"
@@ -98,7 +99,7 @@
           alt="Forest Layer 8"
         />
       </div>
-      <div class="bg-layer layer-9" data-speed="0.06">
+      <div class="bg-layer layer-9" data-speed="0.16">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0000_9.png"
           alt="Forest Layer 9"
@@ -108,7 +109,7 @@
           alt="Forest Layer 9"
         />
       </div>
-      <div class="bg-layer lights-1" data-speed="0.06">
+      <div class="bg-layer lights-1" data-speed="0.16">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0004_Lights.png"
           alt="Forest Lights 1"
@@ -118,7 +119,7 @@
           alt="Forest Lights 1"
         />
       </div>
-      <div class="bg-layer lights-2" data-speed="0.12">
+      <div class="bg-layer lights-2" data-speed="0.22">
         <img
           src="Free Pixel Art Forest/PNG/Background layers/Layer_0007_Lights.png"
           alt="Forest Lights 2"
@@ -130,7 +131,69 @@
       </div>
     </div>
 
-    <div class="hud">
+    <section id="speechBubble">
+      <p>my name is Emma</p>
+    </section>
+    <section id="emma">
+      <img id="emmaPhoto" src="Assets/wavingEmma.png" alt="Emma" />
+    </section>
+    <!-- Start Page  -->
+
+    <section id="startPage">
+      <button class="start-button pixel-corners--wrapper">START</button>
+    </section>
+
+    <!-- Rules Page -->
+
+    <section id="rulesPage">
+      <p id="rulesText">
+        to your Pixel Garden - your very own safe and cozy space.🌸 <br /><br />
+        First, let me introduce you to Emma. She’ll be your companion here —
+        each day,<br /><br />
+        you’ll check in with her and share whether you completed your task.
+        <br /><br />
+
+        Emma will be here to give you gentle support as you grow the habit you
+        want to build. 🌱 <br /><br />
+
+        🤩 If you succeed, she’ll reward you with a beautiful flower 🌹😍
+        <br /><br />
+        😡 But if you skip it… you might just meet the Angry Duck 🔪🦆
+        <br /><br />
+        Another thing — be careful not to make Emma angry…she really doesn’t
+        like being clicked 😉 <br /><br />
+        Now that you know the rules, let’s choose the habit or task you want to
+        start building. 🌟
+      </p>
+      <button class="start-button pixel-corners--wrapper">NEXT</button>
+    </section>
+
+    <!-- Name Page -->
+
+    <section id="namepage">
+      <label id="nameLabel" for="nameInput">What's your name</label> <br />
+      <input
+        type="text"
+        id="nameInput"
+        autocomplete="name"
+        placeholder="NAME"
+      />
+      <button class="start-button pixel-corners--wrapper">NEXT</button>
+    </section>
+
+    <!-- Task Page -->
+
+    <section id="taskPage">
+      <label id="taskLabel" for="task"
+        >Enter The Task that You Want to Track</label
+      ><br />
+      <input type="text" id="taskInput" placeholder="Ex: Study" />
+      <button class="start-button pixel-corners--wrapper">NEXT</button>
+    </section>
+
+    <!-- home Page -->
+
+    <section id="hud">
       <img
         src="Assets/profile_pic.png"
         width="55"
@@ -155,17 +218,15 @@
         id="duckIcon"
       />
       <span id="duckCounter">0</span>
-    </div>
+    </section>
 
-    <div class="start-button-container">
-      <button class="start-button pixel-corners--wrapper">START</button>
-    </div>
-    <div id="nameInput">
-      <label id="lab" for="name">What's your name</label>
-      <input type="text" id="name" autocomplete="name" placeholder="NAME" />
-      <button class="start-button pixel-corners--wrapper">Next</button>
-    </div>
+    <section id="homeBtns">
+      <button class="homebtn pixel-corners--wrapper">Rules</button>
+      <button class="homebtn pixel-corners--wrapper">SOS</button>
+      <button class="homebtn pixel-corners--wrapper">Task</button>
+      <button class="homebtn pixel-corners--wrapper">Study with me</button>
+    </section>
 
-    <script src="forest-background.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
