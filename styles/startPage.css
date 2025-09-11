@@ -580,16 +580,25 @@
 }
 
 #timer {
+  color: aliceblue;
+  position: absolute;
+  top: 10rem;
+  right: 40rem;
+  text-align: right;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+
+#time > div {
   display: flex;
+  justify-content: center;
 }
 
-#timer > div {
-  flex-basis: 100px;
-}
-
-#timer > div > p {
+#timer > div > span {
   font-size: xx-large;
-  margin-bottom: -14px;
+  padding-bottom: 10px;
 }
 
 #homePhotos {

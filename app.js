@@ -368,6 +368,7 @@ studyBtn.addEventListener("click", toStudy);
 
 function toTask(event) {
   clickSound.play();
+  document.querySelector("#timer").style.display = "flex";
   homeBtns.style.display = "none";
   emmaPhoto.src = "Assets/wateringEmma1.png";
   emma.style.right = "22rem";
@@ -450,15 +451,18 @@ function countDown(hours) {
     let min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     let sec = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.querySelector("#hours").textContent = String(hours).padStart(
+    document.querySelector("#hours").textContent = `${String(hours).padStart(
       2,
       "0"
-    );
+    )} :`;
     document.querySelector("#mins").textContent = `${String(min).padStart(
       2,
       "0"
+    )} :`;
+    document.querySelector("#sec").textContent = `${String(sec).padStart(
+      2,
+      "0"
     )}`;
-    document.querySelector("#sec").textContent = String(sec).padStart(2, "0");
   }, 1000);
 }
 countDown(1);
