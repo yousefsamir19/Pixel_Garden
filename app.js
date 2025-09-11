@@ -433,35 +433,35 @@ function toHome(event) {
 
 homeBtn.addEventListener("click", toHome);
 
-// function countDown(hours) {
-//   let endTime = new Date().getTime() + hours * 60 * 60 * 1000;
+function countDown(hours) {
+  let endTime = new Date().getTime() + hours * 60 * 60 * 1000;
 
-//   let x = setInterval(function () {
-//     let startTime = new Date().getTime();
-//     let distance = endTime - startTime;
+  let x = setInterval(function () {
+    let startTime = new Date().getTime();
+    let distance = endTime - startTime;
 
-//     if (distance < 0) {
-//       clearInterval(x);
-//       return;
-//     }
-//     let hours = Math.floor(
-//       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-//     );
-//     let min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//     let sec = Math.floor((distance % (1000 * 60)) / 1000);
+    if (distance < 0) {
+      clearInterval(x);
+      return;
+    }
+    let hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    let min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let sec = Math.floor((distance % (1000 * 60)) / 1000);
 
-//     document.querySelector("#hours").textContent = String(hours).padStart(
-//       2,
-//       "0"
-//     );
-//     document.querySelector("#min").textContent = `${String(hours).padStart(
-//       2,
-//       "0"
-//     )}`;
-//     document.querySelector("#sec").textContent = String(hours).padStart(2, "0");
-//   }, 1000);
-// }
-// countDown(1);
+    document.querySelector("#hours").textContent = String(hours).padStart(
+      2,
+      "0"
+    );
+    document.querySelector("#mins").textContent = `${String(min).padStart(
+      2,
+      "0"
+    )}`;
+    document.querySelector("#sec").textContent = String(sec).padStart(2, "0");
+  }, 1000);
+}
+countDown(1);
 
 //   document.querySelector("#flowers").style.display = "none";
 //   document.querySelector("#pinkFlower").style.display = "none";
