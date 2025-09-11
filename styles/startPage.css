@@ -559,6 +559,138 @@
   box-shadow: none;
 }
 
+#homeBtn {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 4rem;
+}
+
+#sosText {
+  display: none;
+  position: absolute;
+  top: 10rem;
+  color: honeydew;
+  font-size: 15px;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3s steps(300) forwards, blink 7s step-end infinite alternate;
+}
+
+#timer {
+  display: flex;
+}
+
+#timer > div {
+  flex-basis: 100px;
+}
+
+#timer > div > p {
+  font-size: xx-large;
+  margin-bottom: -14px;
+}
+
+#homePhotos {
+  display: none;
+}
+
+#flowers {
+  position: absolute;
+  top: 40.9rem;
+  right: 20rem;
+  width: 43px;
+}
+
+#pinkFlower {
+  display: block;
+  position: absolute;
+  top: 40.5rem;
+  right: 90rem;
+  width: 43px;
+}
+
+#spiderFlower {
+  display: block;
+  position: absolute;
+  top: 39.5rem;
+  right: 78rem;
+  width: 62px;
+}
+
+#tree {
+  display: block;
+  position: absolute;
+  top: 32rem;
+  right: 81rem;
+  width: 120px;
+}
+
+#branch {
+  display: block;
+  position: relative;
+  top: 32.5rem;
+  right: 86.9rem;
+  width: 120px;
+}
+
+#greenTree {
+  display: block;
+  position: absolute;
+  top: 30rem;
+  right: 1rem;
+  width: 210px;
+}
+
+#fire {
+  display: block;
+  position: absolute;
+  top: 39.3rem;
+  right: 10rem;
+  width: 70px;
+}
+
+#cats {
+  display: block;
+  position: absolute;
+  top: 39.6rem;
+  right: 0rem;
+  width: 70px;
+}
+
+#blackDuck {
+  display: block;
+  position: absolute;
+  top: 39.6rem;
+  right: 70rem;
+  width: 70px;
+}
+
+#yellowDuck {
+  display: block;
+  position: absolute;
+  top: 40.3rem;
+  right: 15rem;
+  width: 35px;
+}
+
+#sun {
+  display: block;
+  position: absolute;
+  top: 27rem;
+  right: 15rem;
+  width: 100px;
+}
+
+#clouds {
+  display: block;
+  position: absolute;
+  top: 27rem;
+  right: 30rem;
+  width: 100px;
+}
+
 @keyframes blink {
   50% {
     border-color: transparent;

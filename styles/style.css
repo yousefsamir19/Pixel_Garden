@@ -91,7 +91,7 @@ body {
   z-index: 12;
 }
 
-#speechBubble::after {
+/* #speechBubble::after {
   content: "";
   position: absolute;
   bottom: -20px;
@@ -114,4 +114,4 @@ body {
 #speechBubble > p {
   animation: typing 0.5s steps(6) forwards,
     blink 0.6s step-end infinite alternate;
-}
+} */
