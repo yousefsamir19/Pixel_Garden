@@ -584,7 +584,7 @@
   position: absolute;
   top: 10rem;
   right: 40rem;
-  text-align: right;
+  text-align: center;
   display: none;
   align-items: center;
   justify-content: center;
@@ -592,13 +592,6 @@
 }
 
 #time > div {
-  display: flex;
-  justify-content: center;
-}
-
-#timer > div > span {
-  font-size: xx-large;
-  padding-bottom: 10px;
 }
 
 #homePhotos {

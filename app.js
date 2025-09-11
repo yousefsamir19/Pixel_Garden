@@ -454,11 +454,11 @@ function countDown(hours) {
     document.querySelector("#hours").textContent = `${String(hours).padStart(
       2,
       "0"
-    )} :`;
+    )}`;
     document.querySelector("#mins").textContent = `${String(min).padStart(
       2,
       "0"
-    )} :`;
+    )}`;
     document.querySelector("#sec").textContent = `${String(sec).padStart(
       2,
       "0"
