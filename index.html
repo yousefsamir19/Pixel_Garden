@@ -2,9 +2,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Habit Reminder</title>
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/startPage.css" />
+    <title>Pixel Garden</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <!-- Forest Background Layers -->
@@ -141,7 +140,7 @@
       <img id="blackDuck" src="Assets/blackDuck.png" alt="duck" />
       <img id="yellowDuck" src="Assets/yellowDuck.png" alt="duck" />
       <img id="fire" src="Assets/fire.png" alt="fire" />
-      <img id="clouds" src="Assets/clouds.png" alt="clouds" />
+      <!-- <img id="clouds" src="Assets/clouds.png" alt="clouds" /> -->
       <img id="sun" src="Assets/sun.png" alt="sun" />
     </section>
 
@@ -247,30 +246,51 @@
       Home
     </button>
 
-    <p id="sosText">
-      When God wants to make you successful, He will first take away your
-      comfort, He will test your patience, He will isolate you, He will
-      challenge your faith. because before He gives you the life you dream of,
-      He builds the version of you that can handle it
-    </p>
-
-    <section id="timer">
-      <div>
-        <p id="hours">00</p>
-        <p>Hours</p>
-      </div>
-      <div>:</div>
-      <div>
-        <p id="mins">00</p>
-        <p>Minutes</p>
-      </div>
-      <div>:</div>
-      <div>
-        <p id="sec">00</p>
-        <p>Seconds</p>
-      </div>
+    <section id="sosPage">
+      <p id="sosText">
+        When God wants to make you successful, He will first take away your
+        comfort,<br />
+        He will test your patience, He will isolate you, He will challenge your
+        faith.<br />
+        because before He gives you the life you dream of,<br />
+        He builds the version of you that can handle it
+      </p>
     </section>
 
+    <section id="studyPage">
+      <section id="timer">
+        <div>
+          <p id="hours">00</p>
+          <p>Hours</p>
+        </div>
+        <div>:</div>
+        <div>
+          <p id="mins">00</p>
+          <p>Minutes</p>
+        </div>
+        <div>:</div>
+        <div>
+          <p id="sec">00</p>
+          <p>Seconds</p>
+        </div>
+      </section>
+
+      <button id="timerBtn" class="startTimer pixel-corners--wrapper">
+        Start
+      </button>
+
+      <section id="quranControllers">
+        <button id="playBtn" class="playBtn pixel-corners--wrapper">
+          Play
+        </button>
+        <button id="pauseBtn" class="pauseBtn pixel-corners--wrapper">
+          Pause
+        </button>
+        <button id="stopBtn" class="stopBtn pixel-corners--wrapper">
+          Stop
+        </button>
+      </section>
+    </section>
     <script src="app.js"></script>
   </body>
 </html>

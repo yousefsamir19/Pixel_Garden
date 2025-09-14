@@ -160,8 +160,9 @@
 //   module.exports = ForestBackground;
 // }
 
-const clickSound = new Audio("click1.mp3");
-const typingSound = new Audio("typing.mp3");
+const clickSound = new Audio("soundEffects/click1.mp3");
+const typingSound = new Audio("soundEffects/typing.mp3");
+
 const emma = document.querySelector("#emma");
 const emmaPhoto = document.querySelector("#emmaPhoto");
 const namePage = document.querySelector("#namePage");
@@ -174,6 +175,7 @@ const rulesNextBtn = document.querySelector("#rulesPage > button");
 const rulesText = document.querySelector("#rulesText");
 const homeBtns = document.querySelector("#homeBtns");
 const homePhotos = document.querySelector("#homePhotos");
+
 let username, task;
 
 // emma interaction
@@ -186,7 +188,8 @@ emmaPhoto.addEventListener("mouseover", (event) => {
       if (mouseout == false) {
         bubbleText.textContent = "";
         event.target.src = "Assets/threatingEmma.png";
-        bubbleText.textContent = "I dare you duck head to do it!";
+        bubbleText.textContent =
+          "You better be clicking if you want me to beat you up!";
         speechBubble.style.display = "inline-block";
       }
     }
@@ -199,22 +202,23 @@ emmaPhoto.addEventListener("click", (event) => {
       bubbleText.textContent = "";
       emma.style.top = "36rem";
       event.target.src = "Assets/angryEmma.png";
-      bubbleText.textContent = "Duck you ,you will die for that";
+      bubbleText.textContent =
+        "How you dare ?! You think you can click me and get away with it?! I'll show you!";
       clickedEmma = true;
 
       setTimeout(() => {
         emma.style.top = "35.1rem";
         event.target.src = "Assets/idealEmma.png";
         speechBubble.style.display = "none";
-      }, 2000);
+      }, 4000);
       setTimeout(() => {
         bubbleText.textContent = "";
         emma.style.top = "34.5rem";
         bubbleText.textContent =
-          "Sorry I yelled at you duck head, but it really hurts. Don't do it again if you want to live";
+          "Sorry I yelled at, but it really hurts. Don't do it again if you want to live";
         speechBubble.style.display = "inline-block";
         emmaPhoto.src = "Assets/sadEmma.png";
-      }, 5000);
+      }, 7000);
 
       setTimeout(() => {
         emma.style.top = "35.1rem";
@@ -306,6 +310,7 @@ document.querySelector("#rulesPage > button").onclick = function () {
 document.querySelector("#taskPage > button").onclick = function () {
   clickSound.play();
   task = document.querySelector("#taskInput").value;
+  homeBtns.style.display = "none";
   taskPage.style.display = "none";
   document.querySelector("#playerName").textContent = username;
   document.querySelector("#homeBtns").style.display = "flex";
@@ -322,13 +327,15 @@ const taskBtn = document.querySelector("#homeBtns > button:nth-child(3)");
 const studyBtn = document.querySelector("#homeBtns > button:nth-child(4)");
 const homeBtn = document.querySelector("#homeBtn");
 
+// functions of click the "Rules" btn on home screen
+
 function toRules(event) {
+  emmaHome = false;
   clickSound.play();
   document.querySelector("#hud").style.display = "none";
   document.querySelector("#homeBtns").style.display = "none";
   emmaPhoto.src = "Assets/laughingEmma.png";
-  bubbleText.textContent =
-    " Are you stupid duck head? What's so hard about the rules?";
+  bubbleText.textContent = " Are you stupid ? What's so hard about the rules?";
   speechBubble.style.display = "flex";
   setTimeout(() => {
     bubbleText.textContent =
@@ -347,48 +354,19 @@ function toRules(event) {
   document.querySelector("#rulesBtn").style.display = "none";
   homePhotos.style.display = "none";
   homeBtn.style.display = "flex";
-  emmaHome = false;
 }
-
 rulesBtn.addEventListener("click", toRules);
 
-function toStudy(event) {
-  clickSound.play();
-  homeBtns.style.display = "none";
-  emmaPhoto.src = "Assets/studyEmma.png";
-  homeBtn.style.display = "flex";
-  document.querySelector("#tree").style.display = "none";
-  document.querySelector("#spiderFlower").style.display = "none";
-  bubbleText.textContent =
-    "Hey, duck head. Let's study for an hour. You'll get a flower and a 15-minute break after every session, so collect as many as you can!";
-  speechBubble.style.display = "flex";
-  emmaHome = false;
-}
-studyBtn.addEventListener("click", toStudy);
-
-function toTask(event) {
-  clickSound.play();
-  document.querySelector("#timer").style.display = "flex";
-  homeBtns.style.display = "none";
-  emmaPhoto.src = "Assets/wateringEmma1.png";
-  emma.style.right = "22rem";
-  emma.style.top = "36rem";
-  homeBtn.style.display = "flex";
-  document.querySelector("#tree").style.display = "none";
-  document.querySelector("#spiderFlower").style.display = "none";
-
-  speechBubble.style.left = "64rem";
-  emmaHome = false;
-}
-taskBtn.addEventListener("click", toTask);
+// functions of click the "SOS" btn on home screen
 
 function toSos(event) {
+  emmaHome = false;
   clickSound.play();
   homeBtns.style.display = "none";
   document.querySelector("#tree").style.display = "none";
   document.querySelector("#spiderFlower").style.display = "none";
   emmaPhoto.src = "Assets/smilingEmma.png";
-  bubbleText.textContent = "Hey, duck head. Take it easy.";
+  bubbleText.textContent = `Hey, ${username}. Take it easy.`;
   speechBubble.style.display = "flex";
   document.querySelector("#sosText").style.display = "flex";
   setTimeout(() => {
@@ -399,49 +377,198 @@ function toSos(event) {
     bubbleText.textContent = "Take this flower, and you'll be okay.";
   }, 8000);
   setTimeout(() => {
-    bubbleText.textContent = " Just don't be a duck.";
+    bubbleText.textContent = "I believe in you.";
   }, 12000);
   setTimeout(() => {
     speechBubble.style.display = "none";
     bubbleText.textContent = "";
   }, 18000);
-
   homeBtn.style.display = "flex";
-  emmaHome = false;
 }
-
 sosBtn.addEventListener("click", toSos);
 
-function toHome(event) {
-  clickSound.play();
-  homeBtns.style.display = "felx";
-  emmaPhoto.src = "Assets/idealEmma.png";
-  speechBubble.style.display = "none";
-  document.querySelector("#hud").style.display = "flex";
-  emma.style.right = "45rem";
-  emma.style.top = "35.1rem";
-  speechBubble.style.left = "42rem";
-  homeBtns.style.display = "flex";
-  homeBtn.style.display = "none";
-  document.querySelector("#tree").style.display = "flex";
-  document.querySelector("#spiderFlower").style.display = "flex";
-  document.querySelector("#sosText").style.display = "none";
-  homePhotos.style.display = "flex";
-  rulesPage.style.display = "none";
+// functions of click the "Task" btn on home screen
 
-  emmaHome = true;
+function toTask(event) {
+  emmaHome = false;
+  clickSound.play();
+  homeBtns.style.display = "none";
+  emmaPhoto.src = "Assets/wateringEmma1.png";
+  emma.style.right = "22rem";
+  emma.style.top = "36rem";
+  homeBtn.style.display = "flex";
+  document.querySelector("#tree").style.display = "none";
+  document.querySelector("#spiderFlower").style.display = "none";
+  speechBubble.style.left = "64rem";
+}
+taskBtn.addEventListener("click", toTask);
+
+// functions of click the "Study with me" btn on home screen
+
+const quranControllers = document.querySelector("#quranControllers");
+const studyPage = document.querySelector("#studyPage");
+const surahMaryam = new Audio("soundEffects/surahMaryam.mp3");
+const surahIbrahim = new Audio("soundEffects/surahIbrahim.mp3");
+const surahElnour = new Audio("soundEffects/surahElnour.mp3");
+const surahYaseen = new Audio("soundEffects/surahYaseen.mp3");
+const surahYousef = new Audio("soundEffects/surahYousef.mp3");
+const surahYousefmahr = new Audio("soundEffects/surahYousefmahr.mp3");
+const quackSound = new Audio("soundEffects/quack.mp3");
+let surah;
+
+function toStudy(event) {
+  studyPage.style.display = "flex";
+  emmaHome = false;
+  clickSound.play();
+  homeBtns.style.display = "none";
+  emmaPhoto.src = "Assets/studyEmma.png";
+  homeBtn.style.display = "flex";
+  document.querySelector("#tree").style.display = "none";
+  document.querySelector("#spiderFlower").style.display = "none";
+  bubbleText.textContent = `Hey,${username} . Let's study for an hour.`;
+  speechBubble.style.display = "flex";
+  setTimeout(() => {
+    bubbleText.textContent = `You'll get a flower and a 15-minute break after every session, so collect as many as you can!`;
+  }, 3000);
+  setTimeout(() => {
+    bubbleText.textContent =
+      "Oh, I almost forgot, before you start the study session, hover over the left duck.";
+  }, 7500);
+  setTimeout(() => {
+    speechBubble.style.display = "none";
+  }, 12000);
 }
 
-homeBtn.addEventListener("click", toHome);
+document.querySelector("#blackDuck").addEventListener("mouseover", (event) => {
+  if (!emmaHome) {
+    speechBubble.style.display = "flex";
+    bubbleText.textContent =
+      "I recommend you listen to the Quran. Lucky for you, I have my favorite Suwar here.";
+    setTimeout(() => {
+      bubbleText.textContent =
+        "Just click on the duck, and I'll tell you where you can find them.";
+    }, 9000);
+  }
+});
 
-function countDown(hours) {
-  let endTime = new Date().getTime() + hours * 60 * 60 * 1000;
+let clickedDuck = false;
+document.querySelector("#blackDuck").addEventListener("click", (event) => {
+  if (!emmaHome) {
+    clickedDuck = true;
+    quackSound.play();
+    bubbleText.textContent =
+      "Hover over the items on your righ (like: tree ,cat) to choose a surah, and click on one if you want to play it.";
+  } else {
+    quackSound.play();
+  }
+});
 
+document.querySelector("#flowers").addEventListener("mouseover", (event) => {
+  if (clickedDuck) bubbleText.textContent = "Surah Maryam - Yasser Al Dosari";
+});
+
+document.querySelector("#flowers").addEventListener("click", (event) => {
+  if (clickedDuck) {
+    speechBubble.style.display = "none";
+    surah = surahMaryam;
+    surah.play();
+    quranControllers.style.display = "flex";
+  }
+});
+
+document.querySelector("#yellowDuck").addEventListener("mouseover", (event) => {
+  if (clickedDuck) {
+    bubbleText.textContent = "Surah Ibrahim - El Menshawy";
+  }
+});
+
+document.querySelector("#yellowDuck").addEventListener("click", (event) => {
+  if (clickedDuck) {
+    speechBubble.style.display = "none";
+    surah = surahIbrahim;
+    surah.play();
+    quranControllers.style.display = "flex";
+  } else {
+    quackSound.play();
+  }
+});
+
+document.querySelector("#fire").addEventListener("mouseover", (event) => {
+  if (clickedDuck) bubbleText.textContent = "Surah El Nour - Omar Diaa";
+});
+
+document.querySelector("#fire").addEventListener("click", (event) => {
+  if (clickedDuck) {
+    speechBubble.style.display = "none";
+    surah = surahElnour;
+    surah.play();
+    quranControllers.style.display = "flex";
+  }
+});
+
+document.querySelector("#greenTree").addEventListener("mouseover", (event) => {
+  if (clickedDuck) bubbleText.textContent = "Surah Yousef - El Menshawy";
+});
+
+document.querySelector("#greenTree").addEventListener("click", (event) => {
+  if (clickedDuck) {
+    speechBubble.style.display = "none";
+    surah = surahYousef;
+    surah.play();
+    quranControllers.style.display = "flex";
+  }
+});
+
+document.querySelector("#cats").addEventListener("mouseover", (event) => {
+  if (clickedDuck) bubbleText.textContent = "Surah Yaseen - Yasser Al Dosari";
+});
+
+document.querySelector("#cats").addEventListener("click", (event) => {
+  if (clickedDuck) {
+    speechBubble.style.display = "none";
+    surah = surahYaseen;
+    surah.play();
+    quranControllers.style.display = "flex";
+  }
+});
+
+document.querySelector("#sun").addEventListener("mouseover", (event) => {
+  if (clickedDuck) bubbleText.textContent = "Surah Yousef - Maher El Mouaikel";
+});
+
+document.querySelector("#sun").addEventListener("click", (event) => {
+  if (clickedDuck) {
+    speechBubble.style.display = "none";
+    surah = surahYousefmahr;
+    surah.play();
+    quranControllers.style.display = "flex";
+  }
+});
+
+document.querySelector("#pauseBtn").addEventListener("click", (event) => {
+  surah.pause();
+});
+
+document.querySelector("#stopBtn").addEventListener("click", (event) => {
+  surah.pause();
+  quranControllers.style.display = "none";
+  speechBubble.style.display = "none";
+});
+document.querySelector("#playbtn").addEventListener("click", (event) => {
+  surah.play();
+});
+
+function addHours(hours) {
+  return new Date().getTime() + hours * 60 * 60 * 1000;
+}
+
+function countDown(endTime, key) {
   let x = setInterval(function () {
     let startTime = new Date().getTime();
     let distance = endTime - startTime;
 
     if (distance < 0) {
+      localStorage.removeItem(key);
       clearInterval(x);
       return;
     }
@@ -465,49 +592,43 @@ function countDown(hours) {
     )}`;
   }, 1000);
 }
-countDown(1);
+document.querySelector("#timerBtn").addEventListener("click", (event) => {
+  clickSound.play();
+  let endTime = localStorage.getItem("swm");
 
-//   document.querySelector("#flowers").style.display = "none";
-//   document.querySelector("#pinkFlower").style.display = "none";
-//   document.querySelector("#spiderFlower").style.display = "none";
-//   document.querySelector("#branch").style.display = "none";
-//   document.querySelector("#greenTree").style.display = "none";
-//   document.querySelector("#cats").style.display = "none";
-//   document.querySelector("#tree").style.display = "none";
-//   document.querySelector("#blackDuck").style.display = "none";
-//   document.querySelector("#yellowDuck").style.display = "none";
-//   document.querySelector("#fire").style.display = "none";
-//   document.querySelector("#clouds").style.display = "none";
-//   document.querySelector("#sun").style.display = "none";
-// }
+  if (!endTime) {
+    endTime = addHours(0.0166666667);
+    localStorage.setItem("swm", endTime);
+  }
+  timerBtn.style.display = "none";
+  countDown(endTime, "swm");
 
-// const tasksBtn = document.querySelector("#tasksPage > button");
-// tasksBtn.onclick = function () {
-//   tasksNum = parseInt(document.querySelector("#tasksNumInput").value);
-//   const tasksPage = document.querySelector("#tasksPage");
-//   let flag = true;
-//   if (tasksNum < 1 || tasksNum > 3) {
-//     flag = false;
-//   } else {
-//     flag = true;
-//   }
-//   const invalidNum = document.createElement("h1");
-//   invalidNum.textContent = "Pls Enter from 1 to 3 only";
-//   invalidNum.style.color = "red";
-//   invalidNum.style.fontSize = "xx-large";
-//   invalidNum.style.textAlign = "center";
-//   tasksPage.insertBefore(invalidNum, tasksBtn);
-//   if (flag) {
-//     document.querySelector("#namePage").style.display = "none";
-//     tasksPage.style.display = "block";
-//   }
-// };
+  setTimeout(() => {
+    timerBtn.style.display = "flex";
+  }, 1000 * 60);
+});
 
-// document.querySelectorAll(".start-button.pixel-corners--wrapper")[1].onclick =
-//   function () {
-//     username = document.ge("input")[0].value;
-//     document.getElementsByClassName(
-//       "inputLabel"
-//     )[1].textContent = `Hello ${username} Enter Number of Task You Want to Track`;
-//     tasksNum = document.getElementsByClassName("input")[1].value;
-//   };
+studyBtn.addEventListener("click", toStudy);
+
+function toHome(event) {
+  emmaHome = true;
+  clickedDuck = false;
+  clickSound.play();
+  homeBtns.style.display = "felx";
+  emmaPhoto.src = "Assets/idealEmma.png";
+  speechBubble.style.display = "none";
+  document.querySelector("#hud").style.display = "flex";
+  emma.style.right = "45rem";
+  emma.style.top = "35.1rem";
+  speechBubble.style.left = "42rem";
+  homeBtns.style.display = "flex";
+  homeBtn.style.display = "none";
+  document.querySelector("#tree").style.display = "flex";
+  document.querySelector("#spiderFlower").style.display = "flex";
+  document.querySelector("#sosText").style.display = "none";
+  homePhotos.style.display = "flex";
+  rulesPage.style.display = "none";
+  studyPage.style.display = "none";
+}
+
+homeBtn.addEventListener("click", toHome);
