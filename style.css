@@ -426,7 +426,6 @@ body {
   box-shadow: 0px 10px 0px 0px black;
   cursor: pointer;
   position: relative;
-  z-index: 1001;
   display: block;
 }
 
@@ -445,8 +444,6 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 1000;
-  /* display: none; */
 }
 
 /* name page  */
@@ -466,7 +463,7 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 4rem;
+  margin: 4%;
 }
 
 #namePage label {
@@ -504,7 +501,7 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 4rem;
+  margin: 4%;
 }
 
 #rulesPage > P {
@@ -536,7 +533,7 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 4rem;
+  margin: 4%;
 }
 
 #taskPage label {
@@ -582,8 +579,8 @@ body {
 #emma {
   display: none;
   position: absolute;
-  top: 35.1rem;
-  right: 45rem;
+  top: 35.1%;
+  right: 48%;
 }
 
 #emmaPhoto {
@@ -602,8 +599,8 @@ body {
   font-size: 12px;
   display: none;
   box-shadow: 5px 5px 2px black;
-  bottom: 13rem;
-  left: 45rem;
+  bottom: 30%;
+  left: 45.5%;
 }
 
 #speechBubble::after {
@@ -626,16 +623,72 @@ body {
   border-top: 10px solid white;
 }
 
-#speechBubble > p {
-  animation: typing 1s steps(12) forwards, blink 1s step-end infinite alternate;
+#homePage {
+  display: none;
 }
 
 #homeBtns {
-  display: none;
-  gap: 20px;
+  display: flex;
   position: absolute;
   top: 0;
+  gap: 20px;
   margin: 1.9rem;
+}
+
+#week {
+  color: aliceblue;
+  position: relative;
+  display: flex;
+  font-size: xx-large;
+  bottom: 1rem;
+  left: 42rem;
+}
+
+#date {
+  color: aliceblue;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  top: 2.5rem;
+  left: 27rem;
+  gap: 10px;
+}
+
+#date > div > p {
+  font-size: x-large;
+  padding: 10px;
+}
+
+#clock {
+  display: flex;
+  color: aliceblue;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  top: 6rem;
+  left: 12rem;
+  gap: 10px;
+}
+
+#clock > div > p {
+  font-size: x-large;
+  padding: 10px;
+}
+
+#weather {
+  font-size: xx-large;
+  color: #c7d9dd;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  left: 45.5%;
+  bottom: 44%;
 }
 
 .homebtn {
@@ -677,34 +730,150 @@ body {
   animation: typing 3s steps(300) forwards, blink 7s step-end infinite alternate;
 }
 
-#studyPage {
+#taskCheck {
   height: 30vh;
+  width: 100%;
   display: none;
   position: relative;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }
 
-#timer {
+#taskTimer {
   color: aliceblue;
   position: relative;
   align-items: center;
   text-align: center;
   justify-content: center;
   display: flex;
-  bottom: 7rem;
-  left: 27.5rem;
-  gap: 20px;
+  left: 33%;
+  bottom: 60%;
+  gap: 1%;
 }
 
-#timer > div > p {
+#taskTimer > div > p {
   font-size: x-large;
   padding: 10px;
 }
 
-#timerBtn {
+#taskStart {
+  position: absolute;
+  top: 35%;
+  text-align: center;
   align-items: center;
   justify-content: center;
-  top: 4.5rem;
-  left: 1.4rem;
+}
+
+#taskText {
+  color: aliceblue;
+  font-size: 100%;
+  position: relative;
+  bottom: 70%;
+  right: 30%;
+}
+
+#taskInstraction {
+  color: aliceblue;
+  font-size: 100%;
+  position: relative;
+  top: 10%;
+  right: 57%;
+}
+
+#taskCheckbtn {
+  display: none;
+}
+
+#changeTask {
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  gap: 1rem;
+  display: none;
+}
+
+#changeTask > button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 4%;
+}
+
+#changeTask label {
+  color: honeydew;
+  font-size: xx-large;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2.5s steps(50) forwards,
+    blink 0.6s step-end infinite alternate;
+}
+
+#changeTask input {
+  background-color: honeydew;
+  border-radius: 999px;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 1.25rem;
+  text-align: center;
+  padding: 1rem;
+  display: block;
+  border: none;
+  animation: blink 1s step-end infinite alternate;
+}
+
+#backBtn {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 4rem;
+}
+
+#changeBtn {
+  display: flex;
+  position: absolute;
+  bottom: 156%;
+  left: 2%;
+  gap: 20px;
+}
+
+#studyPage {
+  height: 30vh;
+  width: 100%;
+  display: none;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+#studyTimer {
+  color: aliceblue;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  left: 1.8%;
+  bottom: 60%;
+  gap: 1%;
+}
+
+#studyTimer > div > p {
+  font-size: x-large;
+  padding: 10px;
+}
+
+#timerController {
+  position: absolute;
+  top: 35%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .startTimer {
@@ -784,10 +953,11 @@ body {
 }
 
 #quranControllers {
-  position: relative;
+  position: absolute;
   display: none;
-  top: 10rem;
-  right: 18rem;
+  top: 73%;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
 

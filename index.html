@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Garden</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
   </head>
   <body>
     <!-- Forest Background Layers -->
@@ -140,8 +141,7 @@
       <img id="blackDuck" src="Assets/blackDuck.png" alt="duck" />
       <img id="yellowDuck" src="Assets/yellowDuck.png" alt="duck" />
       <img id="fire" src="Assets/fire.png" alt="fire" />
-      <!-- <img id="clouds" src="Assets/clouds.png" alt="clouds" /> -->
-      <img id="sun" src="Assets/sun.png" alt="sun" />
+      <img id="sun" src="Assets/clearSun.png" alt="sun" />
     </section>
 
     <section id="speechBubble">
@@ -150,6 +150,7 @@
     <section id="emma">
       <img id="emmaPhoto" src="Assets/wavingEmma.png" alt="Emma" />
     </section>
+
     <!-- Start Page  -->
 
     <section id="startPage">
@@ -160,23 +161,16 @@
 
     <section id="rulesPage">
       <p id="rulesText">
-        to your Pixel Garden - your very own safe and cozy space.🌸 <br /><br />
-        First, let me introduce you to Emma. She’ll be your companion here —
-        each day,<br /><br />
-        you’ll check in with her and share whether you completed your task.
-        <br /><br />
-
-        Emma will be here to give you gentle support as you grow the habit you
-        want to build. 🌱 <br /><br />
-
-        🤩 If you succeed, she’ll reward you with a beautiful flower 🌹😍
-        <br /><br />
-        😡 But if you skip it… you might just meet the Angry Duck 🔪🦆
-        <br /><br />
-        Another thing — be careful not to make Emma angry…she really doesn’t
-        like being clicked 😉 <br /><br />
-        Now that you know the rules, let’s choose the habit or task you want to
-        start building. 🌟
+        to your Pixel Garden - your very own safe and cozy space.🌸 First,
+        let<br />
+        me introduce you to Emma. She’ll be your companion here — each day,
+        you’ll check in with her and share whether you completed your task. Emma
+        will be here to give you gentle support as you grow the habit you want
+        to build. 🌱 🤩 If you succeed, she’ll reward you with a beautiful
+        flower 🌹😍 😡 But if you skip it… you might just meet the Angry Duck
+        🔪🦆 Another thing — be careful not to make Emma angry…she really
+        doesn’t like being clicked 😉 Now that you know the rules, let’s choose
+        the habit or task you want to start building. 🌟
       </p>
       <button id="rulesbtn" class="start-button pixel-corners--wrapper">
         NEXT
@@ -186,7 +180,8 @@
     <!-- Name Page -->
 
     <section id="namepage">
-      <label id="nameLabel" for="nameInput">What's your name</label> <br />
+      <label id="nameLabel" for="nameInput">What's your name ?</label>
+      <br />
       <input
         type="text"
         id="nameInput"
@@ -235,11 +230,45 @@
       <span id="duckCounter">0</span>
     </section>
 
-    <section id="homeBtns">
-      <button class="homebtn pixel-corners--wrapper">Rules</button>
-      <button class="homebtn pixel-corners--wrapper">SOS</button>
-      <button class="homebtn pixel-corners--wrapper">Task</button>
-      <button class="homebtn pixel-corners--wrapper">Study with me</button>
+    <section id="homePage">
+      <section id="homeBtns">
+        <button class="homebtn pixel-corners--wrapper">Rules</button>
+        <button class="homebtn pixel-corners--wrapper">SOS</button>
+        <button class="homebtn pixel-corners--wrapper">Task</button>
+        <button class="homebtn pixel-corners--wrapper">Study with me</button>
+      </section>
+
+      <section id="week">
+        <p id="weekDay">00</p>
+      </section>
+
+      <section id="date">
+        <div>
+          <p id="day">00</p>
+        </div>
+        <div>/</div>
+        <div>
+          <p id="month">00</p>
+        </div>
+        <div>/</div>
+        <div>
+          <p id="year">00</p>
+        </div>
+      </section>
+
+      <section id="clock">
+        <div>
+          <p id="hoursClock">00</p>
+        </div>
+        <div>:</div>
+        <div>
+          <p id="minsClock">00</p>
+        </div>
+      </section>
+
+      <section id="weather">
+        <p>00</p>
+      </section>
     </section>
 
     <button id="homeBtn" class="start-button pixel-corners--wrapper">
@@ -257,27 +286,82 @@
       </p>
     </section>
 
-    <section id="studyPage">
-      <section id="timer">
+    <section id="taskCheck">
+      <section id="taskTimer">
         <div>
-          <p id="hours">00</p>
+          <p id="taskHours">00</p>
           <p>Hours</p>
         </div>
         <div>:</div>
         <div>
-          <p id="mins">00</p>
+          <p id="taskMins">00</p>
           <p>Minutes</p>
         </div>
         <div>:</div>
         <div>
-          <p id="sec">00</p>
+          <p id="taskSec">00</p>
           <p>Seconds</p>
         </div>
       </section>
 
-      <button id="timerBtn" class="startTimer pixel-corners--wrapper">
+      <button id="taskStart" class="startTimer pixel-corners--wrapper">
         Start
       </button>
+      <p id="taskText"></p>
+      <p id="taskInstraction">
+        You have 24 hours to<br />complete your task. If you succeed,<br />
+        you’ll earn a flower 🌸.<br />
+        If you fail,<br />you’ll get a duck 🦆. <br />
+        Once you complete a task,<br />
+        you can add a new one.
+      </p>
+      <section id="taskCheckbtn">
+        <p id="taskChecktext">Did you finsh your task ?</p>
+
+        <button id="yesBtn" class="stopBtn pixel-corners--wrapper">Yes</button>
+      </section>
+
+      <button id="changeBtn" class="startTimer pixel-corners--wrapper">
+        Change Task
+      </button>
+    </section>
+
+    <section id="changeTask">
+      <label id="ChangeTasklabel" for="Changetaskinput"
+        >Enter The Task that You Want to Track</label
+      ><br />
+      <input type="text" id="Changetaskinput" placeholder="Ex: Study" />
+      <button id="saveTask" class="start-button pixel-corners--wrapper">
+        Save
+      </button>
+      <button id="backBtn" class="start-button pixel-corners--wrapper">
+        Back
+      </button>
+    </section>
+
+    <section id="studyPage">
+      <section id="studyTimer">
+        <div>
+          <p id="studyHours">00</p>
+          <p>Hours</p>
+        </div>
+        <div>:</div>
+        <div>
+          <p id="studyMins">00</p>
+          <p>Minutes</p>
+        </div>
+        <div>:</div>
+        <div>
+          <p id="studySec">00</p>
+          <p>Seconds</p>
+        </div>
+      </section>
+
+      <section id="timerController">
+        <button id="timerBtn" class="startTimer pixel-corners--wrapper">
+          Start
+        </button>
+      </section>
 
       <section id="quranControllers">
         <button id="playBtn" class="playBtn pixel-corners--wrapper">

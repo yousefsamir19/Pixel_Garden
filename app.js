@@ -160,6 +160,83 @@
 //   module.exports = ForestBackground;
 // }
 
+const apiKey = "bb9e34a1704314f9522cbe483ca3631b";
+const timeNow = new Date().getHours();
+const sun = document.querySelector("#sun");
+
+async function getWeatherData() {
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Cairo&appid=${apiKey}`;
+  const response = await fetch(apiUrl);
+  const weatherData = await response.json();
+  return weatherData;
+}
+
+getWeatherData().then((weatherData) => {
+  const {
+    main: { temp },
+    weather: [{ id, main }],
+  } = weatherData;
+
+  console.log(weatherData);
+
+  document.querySelector("#weather").textContent = `${(temp - 273.15).toFixed(
+    1
+  )}°C`;
+
+  if (id >= 200 && id < 300) {
+    sun.src = "Assets/storm.png";
+  } else if (id >= 300 && id < 400) {
+    sun.src = "Assets/rain.png";
+  } else if (id >= 500 && id < 600) {
+    sun.src = "Assets/rain.png";
+  } else if (id >= 600 && id < 700) {
+    sun.src = "Assets/snow.png";
+  } else if (id >= 700 && id < 800) {
+    sun.src = "Assets/clouds.png";
+  } else if (id === 800) {
+    if (timeNow >= 20 || timeNow < 6) {
+      sun.src = "Assets/moon.png";
+    } else {
+      sun.src = "Assets/clearSun.png";
+    }
+  } else if (id >= 801 && id < 810) {
+    sun.src = "Assets/cloudy.png";
+  } else {
+    if (timeNow >= 20 || timeNow < 6) {
+      sun.src = "Assets/moon.png";
+    } else {
+      sun.src = "Assets/clearSun.png";
+    }
+  }
+});
+
+function clock() {
+  setInterval(function () {
+    let clockNow = new Date();
+    document.querySelector("#hoursClock").textContent = `${String(
+      clockNow.getHours()
+    ).padStart(2, "0")}`;
+
+    document.querySelector("#minsClock").textContent = `${String(
+      clockNow.getMinutes()
+    ).padStart(2, "0")}`;
+  }, 6000);
+  document.querySelector("#day").textContent = new Date().getDate();
+  document.querySelector("#month").textContent = new Date().getMonth() + 1;
+  document.querySelector("#year").textContent = new Date().getFullYear();
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  document.querySelector("#weekday").textContent = days[new Date().getDay()];
+}
+clock();
+
 const clickSound = new Audio("soundEffects/click1.mp3");
 const typingSound = new Audio("soundEffects/typing.mp3");
 
@@ -173,8 +250,18 @@ const speechBubble = document.querySelector("#speechBubble");
 const bubbleText = document.querySelector(`#speechBubble > p`);
 const rulesNextBtn = document.querySelector("#rulesPage > button");
 const rulesText = document.querySelector("#rulesText");
-const homeBtns = document.querySelector("#homeBtns");
 const homePhotos = document.querySelector("#homePhotos");
+const homePage = document.querySelector("#homePage");
+const hud = document.querySelector("#hud");
+const flowerCounter = document.querySelector("#flowerCounter");
+const duckCounter = document.querySelector("#duckCounter");
+const taskCheckpage = document.querySelector("#taskCheck");
+
+// const {
+//   name: city,
+//   main: { temp, humidity },
+//   weather: [{ description, id }],
+// } = data;
 
 let username, task;
 
@@ -262,7 +349,7 @@ document.querySelector("#startPage > button").onclick = function () {
   }, 5000);
   namePage.style.display = "flex";
   startPage.style.display = "none";
-  emma.style.top = "36rem";
+  emma.style.top = "77%";
 };
 
 // the next btn of the name page that moves you to rules page
@@ -302,7 +389,7 @@ document.querySelector("#rulesPage > button").onclick = function () {
   ).textContent = `Enter The Task here`;
   emmaPhoto.src = "Assets/idealEmma.png";
   speechBubble.style.display = "none";
-  emma.style.top = "35.1rem";
+  emma.style.top = "77%";
 };
 
 // the next btn of the task page that moves you to home page
@@ -310,11 +397,10 @@ document.querySelector("#rulesPage > button").onclick = function () {
 document.querySelector("#taskPage > button").onclick = function () {
   clickSound.play();
   task = document.querySelector("#taskInput").value;
-  homeBtns.style.display = "none";
   taskPage.style.display = "none";
   document.querySelector("#playerName").textContent = username;
-  document.querySelector("#homeBtns").style.display = "flex";
-  document.querySelector("#hud").style.display = "flex";
+  homePage.style.display = "flex";
+  hud.style.display = "flex";
   homePhotos.style.display = "flex";
   emmaHome = true;
 };
@@ -330,10 +416,13 @@ const homeBtn = document.querySelector("#homeBtn");
 // functions of click the "Rules" btn on home screen
 
 function toRules(event) {
-  emmaHome = false;
   clickSound.play();
-  document.querySelector("#hud").style.display = "none";
-  document.querySelector("#homeBtns").style.display = "none";
+  emmaHome = false;
+  homePage.style.display = "none";
+  homeBtn.style.display = "flex";
+  homePhotos.style.display = "none";
+  rulesPage.style.display = "flex";
+  hud.style.display = "none";
   emmaPhoto.src = "Assets/laughingEmma.png";
   bubbleText.textContent = " Are you stupid ? What's so hard about the rules?";
   speechBubble.style.display = "flex";
@@ -350,25 +439,22 @@ function toRules(event) {
     speechBubble.style.display = "none";
     bubbleText.textContent = "";
   }, 14000);
-  rulesPage.style.display = "flex";
-  document.querySelector("#rulesBtn").style.display = "none";
-  homePhotos.style.display = "none";
-  homeBtn.style.display = "flex";
 }
 rulesBtn.addEventListener("click", toRules);
 
 // functions of click the "SOS" btn on home screen
 
 function toSos(event) {
-  emmaHome = false;
   clickSound.play();
-  homeBtns.style.display = "none";
+  emmaHome = false;
+  homePage.style.display = "none";
+  homeBtn.style.display = "flex";
   document.querySelector("#tree").style.display = "none";
   document.querySelector("#spiderFlower").style.display = "none";
+  document.querySelector("#sosText").style.display = "flex";
   emmaPhoto.src = "Assets/smilingEmma.png";
   bubbleText.textContent = `Hey, ${username}. Take it easy.`;
   speechBubble.style.display = "flex";
-  document.querySelector("#sosText").style.display = "flex";
   setTimeout(() => {
     bubbleText.textContent =
       " You're doing well and you'll achieve those dreams.";
@@ -383,25 +469,69 @@ function toSos(event) {
     speechBubble.style.display = "none";
     bubbleText.textContent = "";
   }, 18000);
-  homeBtn.style.display = "flex";
 }
 sosBtn.addEventListener("click", toSos);
 
 // functions of click the "Task" btn on home screen
 
 function toTask(event) {
-  emmaHome = false;
   clickSound.play();
-  homeBtns.style.display = "none";
-  emmaPhoto.src = "Assets/wateringEmma1.png";
-  emma.style.right = "22rem";
-  emma.style.top = "36rem";
+  emmaHome = false;
+  homePage.style.display = "none";
   homeBtn.style.display = "flex";
   document.querySelector("#tree").style.display = "none";
   document.querySelector("#spiderFlower").style.display = "none";
-  speechBubble.style.left = "64rem";
+  emmaPhoto.src = "Assets/wateringEmma1.png";
+  emma.style.right = "22rem";
+  emma.style.top = "36rem";
+  speechBubble.style.left = "69%";
+  taskCheckpage.style.display = "flex";
+  document.querySelector(
+    "#taskText"
+  ).textContent = `Your Current Task: ${task}`;
 }
 taskBtn.addEventListener("click", toTask);
+
+let finshTask = false;
+
+document.querySelector("#taskStart").addEventListener("click", (event) => {
+  document.querySelector("#taskStart").style.display = "none";
+  document.querySelector("#taskCheckbtn").style.display = "flex";
+
+  let endTime = localStorage.getItem("task");
+
+  if (!endTime) {
+    endTime = addHours(0.0166666667);
+    localStorage.setItem("task", endTime);
+  }
+  countDown(endTime, "task", 2);
+});
+
+document.querySelector("#yesBtn").addEventListener("click", (event) => {
+  finshTask = true;
+});
+
+document.querySelector("#changeBtn").addEventListener("click", (event) => {
+  document.querySelector("#changeTask").style.display = "flex";
+  taskCheckpage.style.display = "none";
+  homeBtn.style.display = "none";
+});
+
+document.querySelector("#saveTask").addEventListener("click", (event) => {
+  task = document.querySelector("#Changetaskinput").value;
+  document.querySelector("#changeTask").style.display = "none";
+  taskCheckpage.style.display = "flex";
+  homeBtn.style.display = "flex";
+  document.querySelector(
+    "#taskText"
+  ).textContent = `Your Current Task: ${task}`;
+});
+
+document.querySelector("#backBtn").addEventListener("click", (event) => {
+  document.querySelector("#changeTask").style.display = "none";
+  taskCheckpage.style.display = "flex";
+  homeBtn.style.display = "flex";
+});
 
 // functions of click the "Study with me" btn on home screen
 
@@ -414,17 +544,24 @@ const surahYaseen = new Audio("soundEffects/surahYaseen.mp3");
 const surahYousef = new Audio("soundEffects/surahYousef.mp3");
 const surahYousefmahr = new Audio("soundEffects/surahYousefmahr.mp3");
 const quackSound = new Audio("soundEffects/quack.mp3");
+const alarm = new Audio("soundEffects/alarm.mp3");
+const flowerSoundeffect = new Audio("soundEffects/flowerGainEffect.mp3");
 let surah;
+let emmastudy = false;
+let flowers = 0;
+let ducks = 0;
+let studyhours = 0;
 
 function toStudy(event) {
-  studyPage.style.display = "flex";
-  emmaHome = false;
   clickSound.play();
-  homeBtns.style.display = "none";
-  emmaPhoto.src = "Assets/studyEmma.png";
+  emmaHome = false;
+  emmastudy = true;
+  homePage.style.display = "none";
   homeBtn.style.display = "flex";
   document.querySelector("#tree").style.display = "none";
   document.querySelector("#spiderFlower").style.display = "none";
+  studyPage.style.display = "flex";
+  emmaPhoto.src = "Assets/studyEmma.png";
   bubbleText.textContent = `Hey,${username} . Let's study for an hour.`;
   speechBubble.style.display = "flex";
   setTimeout(() => {
@@ -440,7 +577,7 @@ function toStudy(event) {
 }
 
 document.querySelector("#blackDuck").addEventListener("mouseover", (event) => {
-  if (!emmaHome) {
+  if (emmastudy) {
     speechBubble.style.display = "flex";
     bubbleText.textContent =
       "I recommend you listen to the Quran. Lucky for you, I have my favorite Suwar here.";
@@ -562,7 +699,7 @@ function addHours(hours) {
   return new Date().getTime() + hours * 60 * 60 * 1000;
 }
 
-function countDown(endTime, key) {
+function countDown(endTime, key, mode) {
   let x = setInterval(function () {
     let startTime = new Date().getTime();
     let distance = endTime - startTime;
@@ -570,28 +707,77 @@ function countDown(endTime, key) {
     if (distance < 0) {
       localStorage.removeItem(key);
       clearInterval(x);
+      if (mode == 2 && finshTask == false) {
+        document.querySelector("#taskStart").style.display = "flex";
+        document.querySelector("#taskCheckbtn").style.display = "none";
+        ducks++;
+        alarm.play();
+        setTimeout(() => {
+          duckCounter.textContent = ducks;
+          quackSound.play();
+        }, 7000);
+      }
+      return;
+      emmaPhoto.src = "Assets/wateringEmma1.png";
+      emmaPhoto.style.width = "80px";
+      emma.style.right = "48%";
+      emma.style.top = "77.1%";
+    }
+    if (finshTask == true) {
+      localStorage.removeItem(key);
+      clearInterval(x);
+      finshTask = false;
+      document.querySelector("#taskStart").style.display = "flex";
+      document.querySelector("#taskCheckbtn").style.display = "none";
+      flowers++;
+      flowerCounter.textContent = flowers;
+      flowerSoundeffect.play();
+      document.querySelector("#taskHours").textContent = "00";
+      document.querySelector("#taskMins").textContent = "00";
+      document.querySelector("#taskSec").textContent = "00";
       return;
     }
+
+    if (distance < 58993) {
+      emmaPhoto.src = "Assets/emmaChecktime.png";
+      emmaPhoto.style.width = "150px";
+      emma.style.right = "22rem";
+      emma.style.top = "36rem";
+    }
+
     let hours = Math.floor(
       (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
     let min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     let sec = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.querySelector("#hours").textContent = `${String(hours).padStart(
-      2,
-      "0"
-    )}`;
-    document.querySelector("#mins").textContent = `${String(min).padStart(
-      2,
-      "0"
-    )}`;
-    document.querySelector("#sec").textContent = `${String(sec).padStart(
-      2,
-      "0"
-    )}`;
+    if (mode == 1) {
+      document.querySelector("#studyHours").textContent = `${String(
+        hours
+      ).padStart(2, "0")}`;
+      document.querySelector("#studyMins").textContent = `${String(
+        min
+      ).padStart(2, "0")}`;
+      document.querySelector("#studySec").textContent = `${String(sec).padStart(
+        2,
+        "0"
+      )}`;
+    }
+    if (mode == 2) {
+      document.querySelector("#taskHours").textContent = `${String(
+        hours
+      ).padStart(2, "0")}`;
+      document.querySelector("#taskMins").textContent = `${String(min).padStart(
+        2,
+        "0"
+      )}`;
+      document.querySelector("#taskSec").textContent = `${String(sec).padStart(
+        2,
+        "0"
+      )}`;
+    }
   }, 1000);
 }
+
 document.querySelector("#timerBtn").addEventListener("click", (event) => {
   clickSound.play();
   let endTime = localStorage.getItem("swm");
@@ -601,34 +787,54 @@ document.querySelector("#timerBtn").addEventListener("click", (event) => {
     localStorage.setItem("swm", endTime);
   }
   timerBtn.style.display = "none";
-  countDown(endTime, "swm");
+  countDown(endTime, "swm", 1);
 
   setTimeout(() => {
+    alarm.play();
     timerBtn.style.display = "flex";
+    flowers++;
+    studyhours++;
   }, 1000 * 60);
+
+  setTimeout(() => {
+    flowerCounter.textContent = flowers;
+    flowerSoundeffect.play();
+  }, 1000 * 60 + 7000);
 });
 
 studyBtn.addEventListener("click", toStudy);
 
 function toHome(event) {
+  clickSound.play();
   emmaHome = true;
   clickedDuck = false;
-  clickSound.play();
-  homeBtns.style.display = "felx";
-  emmaPhoto.src = "Assets/idealEmma.png";
-  speechBubble.style.display = "none";
-  document.querySelector("#hud").style.display = "flex";
-  emma.style.right = "45rem";
-  emma.style.top = "35.1rem";
-  speechBubble.style.left = "42rem";
-  homeBtns.style.display = "flex";
+  emmastudy = false;
+  homePage.style.display = "flex";
   homeBtn.style.display = "none";
+  homePhotos.style.display = "flex";
   document.querySelector("#tree").style.display = "flex";
   document.querySelector("#spiderFlower").style.display = "flex";
+  hud.style.display = "flex";
   document.querySelector("#sosText").style.display = "none";
-  homePhotos.style.display = "flex";
   rulesPage.style.display = "none";
   studyPage.style.display = "none";
+  emmaPhoto.src = "Assets/idealEmma.png";
+  speechBubble.style.left = "45.5%";
+  speechBubble.style.display = "none";
+  emma.style.right = "48%";
+  emma.style.top = "77.1%";
+  taskCheckpage.style.display = "none";
 }
-
 homeBtn.addEventListener("click", toHome);
+
+// var test = document.getElementById("test");
+// var Typewriter = new Typewriter(test, {
+//   loop: false,
+//   delay: 75,
+// });
+
+// Typewriter.pauseFor(2002)
+//   .typeString(
+//     "to your Pixel Garden - your very own safe and cozy space.🌸 First,let me introduce you to Emma. She’ll be your companion here — eac you’ll check in with her and share whether you completed your task will be here to give you gentle support as you grow the habit yo to build. 🌱 🤩 If you succeed, she’ll reward you with a bea flower 🌹😍 😡 But if you skip it… you might just meet the Angr 🔪🦆 Another thing — be careful not to make Emma angry…she  doesn’t like being clicked 😉 Now that you know the rules, let’s  the habit or task you want to start building. 🌟"
+//   )
+//   .start();
