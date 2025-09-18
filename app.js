@@ -1,165 +1,19 @@
-// class ForestBackground {
-//   constructor() {
-//     this.layers = document.querySelectorAll(".bg-layer");
-//     this.isMoving = false;
-//     this.movementSpeed = 0;
-//     this.idleSpeed = 0.0;
-//     this.movingSpeed = 2;
-//     this.currentX = 0;
-//     this.targetX = 0;
-//     this.animationId = null;
+// parallax effect for the background
 
-//     this.init();
-//   }
+document.addEventListener("mousemove", parallax);
 
-//   init() {
-//     // Start the animation loop
-//     this.animate();
+function parallax(event) {
+  document.querySelectorAll(".backgroundLayersmoving").forEach((shift) => {
+    const position = shift.getAttribute("value") || 0;
+    const x = (window.innerWidth - event.pageX * position) / 200;
 
-//     // Add keyboard event listeners for character movement
-//     this.addMovementListeners();
+    shift.style.transform = `translateX(${x}px)`;
+  });
+}
 
-//     // Add touch/mouse support for mobile
-//     this.addTouchSupport();
-//   }
+// weather degree , icon and the weather state
 
-//   addMovementListeners() {
-//     let isKeyPressed = false;
-
-//     document.addEventListener("keydown", (e) => {
-//       if (
-//         !isKeyPressed &&
-//         (e.key === "ArrowLeft" ||
-//           e.key === "ArrowRight" ||
-//           e.key === "a" ||
-//           e.key === "d" ||
-//           e.key === "A" ||
-//           e.key === "D")
-//       ) {
-//         isKeyPressed = true;
-//         this.startMoving();
-//       }
-//     });
-
-//     document.addEventListener("keyup", (e) => {
-//       if (
-//         e.key === "ArrowLeft" ||
-//         e.key === "ArrowRight" ||
-//         e.key === "a" ||
-//         e.key === "d" ||
-//         e.key === "A" ||
-//         e.key === "D"
-//       ) {
-//         isKeyPressed = false;
-//         this.stopMoving();
-//       }
-//     });
-//   }
-
-//   addTouchSupport() {
-//     let touchStartX = 0;
-//     let isTouching = false;
-
-//     document.addEventListener("touchstart", (e) => {
-//       touchStartX = e.touches[0].clientX;
-//       isTouching = true;
-//       this.startMoving();
-//     });
-
-//     document.addEventListener("touchmove", (e) => {
-//       if (isTouching) {
-//         const touchX = e.touches[0].clientX;
-//         const deltaX = touchX - touchStartX;
-
-//         // Determine movement direction based on touch
-//         if (Math.abs(deltaX) > 10) {
-//           this.targetX += deltaX * 0.01;
-//           touchStartX = touchX;
-//         }
-//       }
-//     });
-
-//     document.addEventListener("touchend", () => {
-//       isTouching = false;
-//       this.stopMoving();
-//     });
-//   }
-
-//   startMoving() {
-//     this.isMoving = true;
-//     this.movementSpeed = this.movingSpeed;
-//   }
-
-//   stopMoving() {
-//     this.isMoving = false;
-//     this.movementSpeed = this.idleSpeed;
-//   }
-
-//   animate() {
-//     // Calculate movement
-//     if (this.isMoving) {
-//       // When character is moving, no parallax - keep layers static
-//       this.targetX = 0;
-//     } else {
-//       // Idle movement - subtle back and forth with parallax
-//       this.targetX += Math.sin(Date.now() * 0.001) * 0.5;
-//     }
-
-//     // Smooth interpolation
-//     this.currentX += (this.targetX - this.currentX) * 0.1;
-
-//     // Apply parallax effect to each layer only during idle state
-//     this.layers.forEach((layer) => {
-//       const speed = parseFloat(layer.dataset.speed);
-//       let x = 0;
-
-//       if (!this.isMoving) {
-//         // Only apply parallax during idle state
-//         x = this.currentX * speed;
-
-//         // Implement infinite scrolling - reset position when reaching edge
-//         const layerWidth = window.innerWidth; // Width of one image
-//         if (x > layerWidth) {
-//           x = x - layerWidth;
-//         } else if (x < -layerWidth) {
-//           x = x + layerWidth;
-//         }
-//       }
-
-//       layer.style.transform = `translateX(${x}px)`;
-//     });
-
-//     this.animationId = requestAnimationFrame(() => this.animate());
-//   }
-
-//   // Method to manually control background movement (for external use)
-//   moveBackground(direction, speed = 1) {
-//     this.targetX += direction * speed;
-//   }
-
-//   // Method to set idle state
-//   setIdle() {
-//     this.isMoving = false;
-//     this.movementSpeed = this.idleSpeed;
-//   }
-
-//   // Method to set moving state
-//   setMoving() {
-//     this.isMoving = true;
-//     this.movementSpeed = this.movingSpeed;
-//   }
-// }
-
-// // Initialize the forest background when the page loads
-// document.addEventListener("DOMContentLoaded", () => {
-//   window.forestBackground = new ForestBackground();
-// });
-
-// // Export for use in other scripts
-// if (typeof module !== "undefined" && module.exports) {
-//   module.exports = ForestBackground;
-// }
-
+let weatherID;
 const apiKey = "bb9e34a1704314f9522cbe483ca3631b";
 const timeNow = new Date().getHours();
 const sun = document.querySelector("#sun");
@@ -177,11 +31,11 @@ getWeatherData().then((weatherData) => {
     weather: [{ id, main }],
   } = weatherData;
 
-  console.log(weatherData);
-
   document.querySelector("#weather").textContent = `${(temp - 273.15).toFixed(
     1
   )}°C`;
+
+  weatherID = id;
 
   if (id >= 200 && id < 300) {
     sun.src = "Assets/storm.png";
@@ -200,7 +54,11 @@ getWeatherData().then((weatherData) => {
       sun.src = "Assets/clearSun.png";
     }
   } else if (id >= 801 && id < 810) {
-    sun.src = "Assets/cloudy.png";
+    if (timeNow >= 20 || timeNow < 6) {
+      sun.src = "Assets/cloudyMoon.png";
+    } else {
+      sun.src = "Assets/cloudy.png";
+    }
   } else {
     if (timeNow >= 20 || timeNow < 6) {
       sun.src = "Assets/moon.png";
@@ -208,7 +66,63 @@ getWeatherData().then((weatherData) => {
       sun.src = "Assets/clearSun.png";
     }
   }
+  if (temp - 273.15 < 11) sun.src = "Assets/snow.png";
 });
+
+sun.addEventListener("mouseover", (event) => {
+  if (weatherID >= 200 && weatherID < 300) {
+    speechBubble.style.display = "flex";
+    bubbleText.textContent = "It looks stormy outside, stay safe!";
+  } else if (weatherID >= 300 && weatherID < 400) {
+    speechBubble.style.display = "flex";
+    bubbleText.textContent =
+      "It’s raining outside, perfect weather for some tea.";
+  } else if (weatherID >= 500 && weatherID < 600) {
+    speechBubble.style.display = "flex";
+    bubbleText.textContent =
+      "It’s raining outside, perfect weather for some tea.";
+  } else if (weatherID >= 600 && weatherID < 700) {
+    speechBubble.style.display = "flex";
+    bubbleText.textContent = "It’s snowing! Time for a cozy blanket.";
+  } else if (weatherID >= 700 && weatherID < 800) {
+    speechBubble.style.display = "flex";
+    bubbleText.textContent =
+      "It looks foggy outside, be careful if you go out!";
+  } else if (weatherID === 800) {
+    if (timeNow >= 20 || timeNow < 6) {
+      speechBubble.style.display = "flex";
+      bubbleText.innerHTML =
+        "The sky is clear, and the<br><br>moon is shining like you.";
+    } else {
+      speechBubble.style.display = "flex";
+      bubbleText.textContent = "Clear skies! A perfect sunny day.";
+    }
+  } else if (weatherID >= 801 && weatherID < 810) {
+    if (timeNow >= 20 || timeNow < 6) {
+      speechBubble.style.display = "flex";
+      bubbleText.textContent = "Clouds are covering the night sky.";
+    } else {
+      speechBubble.style.display = "flex";
+      bubbleText.textContent = "Some clouds are floating across the sky.";
+    }
+  } else {
+    if (timeNow >= 20 || timeNow < 6) {
+      speechBubble.style.display = "flex";
+      bubbleText.textContent =
+        "The sky is clear, and the moon is shining bright like you.";
+    } else {
+      speechBubble.style.display = "flex";
+      bubbleText.textContent = "A bright and beautiful day.";
+    }
+  }
+});
+
+sun.addEventListener("mouseout", (event) => {
+  bubbleText.textContent = "";
+  speechBubble.style.display = "none";
+});
+
+// clock and date function
 
 function clock() {
   setInterval(function () {
@@ -238,7 +152,6 @@ function clock() {
 clock();
 
 const clickSound = new Audio("soundEffects/click1.mp3");
-const typingSound = new Audio("soundEffects/typing.mp3");
 
 const emma = document.querySelector("#emma");
 const emmaPhoto = document.querySelector("#emmaPhoto");
@@ -257,18 +170,20 @@ const flowerCounter = document.querySelector("#flowerCounter");
 const duckCounter = document.querySelector("#duckCounter");
 const taskCheckpage = document.querySelector("#taskCheck");
 
-// const {
-//   name: city,
-//   main: { temp, humidity },
-//   weather: [{ description, id }],
-// } = data;
-
 let username, task;
+let emmaTimeouts = [];
+
+function clearEmmaTimeouts() {
+  emmaTimeouts.forEach((timeoutID) => clearTimeout(timeoutID));
+  emmaTimeouts = [];
+}
 
 // emma interaction
+
 let emmaHome = false;
 let clickedEmma = false;
 let mouseout = false;
+
 emmaPhoto.addEventListener("mouseover", (event) => {
   if (emmaHome) {
     if (!clickedEmma) {
@@ -278,6 +193,28 @@ emmaPhoto.addEventListener("mouseover", (event) => {
         bubbleText.textContent =
           "You better be clicking if you want me to beat you up!";
         speechBubble.style.display = "inline-block";
+      }
+    }
+  }
+});
+
+emmaPhoto.addEventListener("mouseout", (event) => {
+  if (emmaHome) {
+    if (!clickedEmma) {
+      if (mouseout == false) {
+        bubbleText.textContent = "";
+        mouseout = true;
+        emma.style.top = "35.1rem";
+        event.target.src = "Assets/idealEmma.png";
+        bubbleText.textContent = "good for you";
+
+        emmaTimeouts.push(
+          setTimeout(() => {
+            speechBubble.style.display = "none";
+            bubbleText.textContent = "";
+            mouseout = false;
+          }, 3000)
+        );
       }
     }
   }
@@ -293,95 +230,116 @@ emmaPhoto.addEventListener("click", (event) => {
         "How you dare ?! You think you can click me and get away with it?! I'll show you!";
       clickedEmma = true;
 
-      setTimeout(() => {
-        emma.style.top = "35.1rem";
-        event.target.src = "Assets/idealEmma.png";
-        speechBubble.style.display = "none";
-      }, 4000);
-      setTimeout(() => {
-        bubbleText.textContent = "";
-        emma.style.top = "34.5rem";
-        bubbleText.textContent =
-          "Sorry I yelled at, but it really hurts. Don't do it again if you want to live";
-        speechBubble.style.display = "inline-block";
-        emmaPhoto.src = "Assets/sadEmma.png";
-      }, 7000);
-
-      setTimeout(() => {
-        emma.style.top = "35.1rem";
-        speechBubble.style.display = "none";
-        bubbleText.textContent = "";
-        emmaPhoto.src = "Assets/idealEmma.png";
-        clickedEmma = false;
-      }, 17000);
-    }
-  }
-});
-
-emmaPhoto.addEventListener("mouseout", (event) => {
-  if (emmaHome) {
-    if (!clickedEmma) {
-      if (mouseout == false) {
-        bubbleText.textContent = "";
-        mouseout = true;
-        emma.style.top = "35.1rem";
-        event.target.src = "Assets/idealEmma.png";
-        bubbleText.textContent = "good for you";
+      emmaTimeouts.push(
         setTimeout(() => {
+          emma.style.top = "35.1rem";
+          event.target.src = "Assets/idealEmma.png";
+          speechBubble.style.display = "none";
+        }, 4000)
+      );
+
+      emmaTimeouts.push(
+        setTimeout(() => {
+          bubbleText.textContent = "";
+          emma.style.top = "34.5rem";
+          bubbleText.textContent =
+            "Sorry I yelled at, but it really hurts. Don't do it again if you want to live";
+          speechBubble.style.display = "inline-block";
+          emmaPhoto.src = "Assets/sadEmma.png";
+        }, 7000)
+      );
+
+      emmaTimeouts.push(
+        setTimeout(() => {
+          emma.style.top = "35.1rem";
           speechBubble.style.display = "none";
           bubbleText.textContent = "";
-          mouseout = false;
-        }, 3000);
-      }
+          emmaPhoto.src = "Assets/idealEmma.png";
+          clickedEmma = false;
+        }, 17000)
+      );
     }
   }
 });
 
 // the start btn that moves you to the name page
 
-document.querySelector("#startPage > button").onclick = function () {
-  clickSound.play();
-  typingSound.play();
+let firstTime = false;
 
-  setTimeout(() => {
-    typingSound.pause();
-    typingSound.currentTime = 0;
-  }, 5000);
+function toStartPage() {
+  document.querySelector("#startPage").style.display = "flex";
+}
+
+function goToNamePage() {
+  clickSound.play();
+
+  var nameText = document.querySelector("#nameLabel");
+  var nameTexteffect = new Typewriter(nameText, {
+    loop: false,
+    delay: 60,
+  });
+  nameTexteffect.pauseFor(200).typeString("What's your name?").start();
+
   namePage.style.display = "flex";
   startPage.style.display = "none";
   emma.style.top = "77%";
-};
+}
 
-// the next btn of the name page that moves you to rules page
-
-document.querySelector("#namePage > button").onclick = function () {
+function goToRulesPage() {
   clickSound.play();
-  typingSound.play();
-
-  setTimeout(() => {
-    typingSound.pause();
-    typingSound.currentTime = 0;
-  }, 800);
 
   username = document.querySelector("#nameInput").value;
   namePage.style.display = "none";
   rulesPage.style.display = "flex";
   bubbleText.prepend(`Hey ${username},`);
-  document.querySelector("#rulesText").prepend(`Welcome ${username}`);
+  var rulesText = document.querySelector("#rulesText");
+  var rulesTexteffect = new Typewriter(rulesText, {
+    loop: false,
+    delay: 60,
+  });
+  rulesTexteffect
+    .pauseFor(200)
+    .typeString(
+      `Hey ${username}, <br><br> Welcome to your Pixel Garden - your very own safe and cozy space.🌸 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      "First,let me introduce you to Emma. She’ll be your companion here — each day,<br><br>"
+    )
+    .pauseFor(300)
+    .typeString(
+      `You’ll check in with her and share whether you completed your task. Emma
+        will be here to give you <br><br> gentle support as you grow the habit you want
+        to build. 🌱 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `If you succeed, she’ll reward you with a beautiful
+        flower 🌹 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `But if you skip it… you might just meet the Angry Duck
+        🔪🦆 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `Another thing — be careful not to make Emma angry…she really
+      doesn’t like being clicked <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `Now that you know the rules, let’s choose
+      the habit or task you want to start building. 🌟`
+    )
+    .start();
+
   emma.style.display = "flex";
   speechBubble.style.display = "inline-block";
-};
+}
 
-// the next btn of the rules page that moves you to task page
-
-document.querySelector("#rulesPage > button").onclick = function () {
+function goToTaskPage() {
   clickSound.play();
-  typingSound.play();
-
-  setTimeout(() => {
-    typingSound.pause();
-    typingSound.currentTime = 0;
-  }, 1700);
   rulesPage.style.display = "none";
   document.querySelector("#taskPage").style.display = "flex";
   document.querySelector(
@@ -390,21 +348,83 @@ document.querySelector("#rulesPage > button").onclick = function () {
   emmaPhoto.src = "Assets/idealEmma.png";
   speechBubble.style.display = "none";
   emma.style.top = "77%";
-};
+}
 
-// the next btn of the task page that moves you to home page
-
-document.querySelector("#taskPage > button").onclick = function () {
+function goToHomePage() {
   clickSound.play();
-  task = document.querySelector("#taskInput").value;
+  emmaHome = true;
+  firstTime = false;
+  homePage.style.display = "flex";
+  homePhotos.style.display = "flex";
+  hud.style.display = "flex";
   taskPage.style.display = "none";
   document.querySelector("#playerName").textContent = username;
-  homePage.style.display = "flex";
-  hud.style.display = "flex";
-  homePhotos.style.display = "flex";
-  emmaHome = true;
-};
+  task = document.querySelector("#taskInput").value;
+  emmaPhoto.src = "Assets/idealEmma.png";
+  emma.style.display = "flex";
+  emma.style.top = "77%";
+  var rulesText = document.querySelector("#rulesText");
+  var rulesTexteffect = new Typewriter(rulesText, {
+    loop: false,
+    delay: 60,
+  });
+  rulesTexteffect
+    .pauseFor(200)
+    .typeString(
+      `Hey ${username}, <br><br> Welcome to your Pixel Garden - your very own safe and cozy space.🌸 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      "First,let me introduce you to Emma. She’ll be your companion here — each day,<br><br>"
+    )
+    .pauseFor(300)
+    .typeString(
+      `You’ll check in with her and share whether you completed your task. Emma
+        will be here to give you <br><br> gentle support as you grow the habit you want
+        to build. 🌱 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `If you succeed, she’ll reward you with a beautiful
+        flower 🌹 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `But if you skip it… you might just meet the Angry Duck
+        🔪🦆 <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `Another thing — be careful not to make Emma angry…she really
+      doesn’t like being clicked <br><br>`
+    )
+    .pauseFor(300)
+    .typeString(
+      `Now that you know the rules, let’s choose
+      the habit or task you want to start building. 🌟`
+    )
+    .start();
+}
 
+if (firstTime) {
+  toStartPage();
+}
+document
+  .querySelector("#startPage > button")
+  .addEventListener("click", goToNamePage);
+document
+  .querySelector("#namePage > button")
+  .addEventListener("click", goToRulesPage);
+document
+  .querySelector("#rulesPage > button")
+  .addEventListener("click", goToTaskPage);
+document
+  .querySelector("#taskPage > button")
+  .addEventListener("click", goToHomePage);
+
+if (!firstTime) {
+  goToHomePage();
+}
 // home page btns
 
 const rulesBtn = document.querySelector("#homeBtns > button:nth-child(1)");
@@ -418,27 +438,37 @@ const homeBtn = document.querySelector("#homeBtn");
 function toRules(event) {
   clickSound.play();
   emmaHome = false;
+  clearEmmaTimeouts();
   homePage.style.display = "none";
   homeBtn.style.display = "flex";
   homePhotos.style.display = "none";
+  rulesNextBtn.style.display = "none";
   rulesPage.style.display = "flex";
   hud.style.display = "none";
   emmaPhoto.src = "Assets/laughingEmma.png";
   bubbleText.textContent = " Are you stupid ? What's so hard about the rules?";
   speechBubble.style.display = "flex";
-  setTimeout(() => {
-    bubbleText.textContent =
-      "They're simple: do the task, and you get a flower.";
-  }, 4000);
-  setTimeout(() => {
-    bubbleText.textContent =
-      "If not, you'll end up with a stupid duck like you.";
-  }, 8000);
 
-  setTimeout(() => {
-    speechBubble.style.display = "none";
-    bubbleText.textContent = "";
-  }, 14000);
+  emmaTimeouts.push(
+    setTimeout(() => {
+      bubbleText.textContent =
+        "They're simple: do the task, and you get a flower.";
+    }, 4000)
+  );
+
+  emmaTimeouts.push(
+    setTimeout(() => {
+      bubbleText.textContent =
+        "If not, you'll end up with a stupid duck like you.";
+    }, 8000)
+  );
+
+  emmaTimeouts.push(
+    setTimeout(() => {
+      speechBubble.style.display = "none";
+      bubbleText.textContent = "";
+    }, 14000)
+  );
 }
 rulesBtn.addEventListener("click", toRules);
 
@@ -447,28 +477,67 @@ rulesBtn.addEventListener("click", toRules);
 function toSos(event) {
   clickSound.play();
   emmaHome = false;
+  clearEmmaTimeouts();
   homePage.style.display = "none";
   homeBtn.style.display = "flex";
   document.querySelector("#tree").style.display = "none";
   document.querySelector("#spiderFlower").style.display = "none";
   document.querySelector("#sosText").style.display = "flex";
   emmaPhoto.src = "Assets/smilingEmma.png";
-  bubbleText.textContent = `Hey, ${username}. Take it easy.`;
-  speechBubble.style.display = "flex";
-  setTimeout(() => {
-    bubbleText.textContent =
-      " You're doing well and you'll achieve those dreams.";
-  }, 4000);
-  setTimeout(() => {
-    bubbleText.textContent = "Take this flower, and you'll be okay.";
-  }, 8000);
-  setTimeout(() => {
-    bubbleText.textContent = "I believe in you.";
-  }, 12000);
-  setTimeout(() => {
-    speechBubble.style.display = "none";
-    bubbleText.textContent = "";
-  }, 18000);
+
+  var sosText = document.querySelector("#sosText");
+  var sosTexteffect = new Typewriter(sosText, {
+    loop: false,
+    delay: 60,
+  });
+
+  sosTexteffect
+    .pauseFor(200)
+    .typeString(
+      "When God wants to make you successful, He will first take away your comfort,<br /><br />"
+    )
+    .pauseFor(300)
+    .typeString(
+      "He will test your patience, He will isolate you, He will challenge yourfaith.<br /><br />"
+    )
+    .pauseFor(300)
+    .typeString(
+      "because before He gives you the life you dream of,<br /><br />"
+    )
+    .pauseFor(300)
+    .typeString("He builds the version of you that can handle it.")
+    .start();
+
+  if (!emmaHome) {
+    bubbleText.textContent = `Hey, ${username}. Take it easy.`;
+    speechBubble.style.display = "flex";
+
+    emmaTimeouts.push(
+      setTimeout(() => {
+        bubbleText.textContent =
+          " You're doing well and you'll achieve those dreams.";
+      }, 4000)
+    );
+
+    emmaTimeouts.push(
+      setTimeout(() => {
+        bubbleText.textContent = "Take this flower, and you'll be okay.";
+      }, 8000)
+    );
+
+    emmaTimeouts.push(
+      setTimeout(() => {
+        bubbleText.textContent = "I believe in you.";
+      }, 12000)
+    );
+
+    emmaTimeouts.push(
+      setTimeout(() => {
+        speechBubble.style.display = "none";
+        bubbleText.textContent = "";
+      }, 18000)
+    );
+  }
 }
 sosBtn.addEventListener("click", toSos);
 
@@ -477,6 +546,7 @@ sosBtn.addEventListener("click", toSos);
 function toTask(event) {
   clickSound.play();
   emmaHome = false;
+  clearEmmaTimeouts();
   homePage.style.display = "none";
   homeBtn.style.display = "flex";
   document.querySelector("#tree").style.display = "none";
@@ -484,6 +554,10 @@ function toTask(event) {
   emmaPhoto.src = "Assets/wateringEmma1.png";
   emma.style.right = "22rem";
   emma.style.top = "36rem";
+
+  bubbleText.innerHTML =
+    "I’m watering the flowers just for<br><br>you! I really hope you finish your<br><br>task—otherwise, all my hard work<br><br>will go to waste.";
+  speechBubble.style.display = "flex";
   speechBubble.style.left = "69%";
   taskCheckpage.style.display = "flex";
   document.querySelector(
@@ -556,6 +630,7 @@ function toStudy(event) {
   clickSound.play();
   emmaHome = false;
   emmastudy = true;
+  clearEmmaTimeouts();
   homePage.style.display = "none";
   homeBtn.style.display = "flex";
   document.querySelector("#tree").style.display = "none";
@@ -564,27 +639,41 @@ function toStudy(event) {
   emmaPhoto.src = "Assets/studyEmma.png";
   bubbleText.textContent = `Hey,${username} . Let's study for an hour.`;
   speechBubble.style.display = "flex";
-  setTimeout(() => {
-    bubbleText.textContent = `You'll get a flower and a 15-minute break after every session, so collect as many as you can!`;
-  }, 3000);
-  setTimeout(() => {
-    bubbleText.textContent =
-      "Oh, I almost forgot, before you start the study session, hover over the left duck.";
-  }, 7500);
-  setTimeout(() => {
-    speechBubble.style.display = "none";
-  }, 12000);
+
+  emmaTimeouts.push(
+    setTimeout(() => {
+      bubbleText.innerHTML = `You'll get a flower and a 15-minute break after<br><br>every session, so collect as many as you can!`;
+    }, 3000)
+  );
+
+  emmaTimeouts.push(
+    setTimeout(() => {
+      bubbleText.innerHTML =
+        "Oh, I almost forgot, before you start<br><br>the study session, hover over the left duck.";
+    }, 7500)
+  );
+
+  emmaTimeouts.push(
+    setTimeout(() => {
+      speechBubble.style.display = "none";
+    }, 12000)
+  );
 }
 
 document.querySelector("#blackDuck").addEventListener("mouseover", (event) => {
   if (emmastudy) {
-    speechBubble.style.display = "flex";
-    bubbleText.textContent =
-      "I recommend you listen to the Quran. Lucky for you, I have my favorite Suwar here.";
-    setTimeout(() => {
-      bubbleText.textContent =
-        "Just click on the duck, and I'll tell you where you can find them.";
-    }, 9000);
+    if (!clickedDuck) {
+      speechBubble.style.display = "flex";
+      bubbleText.innerHTML =
+        "I recommend you listen to the Quran. Lucky for you,<br><br>I have my favorite Suwar here.";
+
+      emmaTimeouts.push(
+        setTimeout(() => {
+          bubbleText.innerHTML =
+            "Just click on the duck,<br><br>and I'll tell you where you can find them.";
+        }, 9000)
+      );
+    }
   }
 });
 
@@ -592,9 +681,10 @@ let clickedDuck = false;
 document.querySelector("#blackDuck").addEventListener("click", (event) => {
   if (!emmaHome) {
     clickedDuck = true;
+    clearEmmaTimeouts();
     quackSound.play();
-    bubbleText.textContent =
-      "Hover over the items on your righ (like: tree ,cat) to choose a surah, and click on one if you want to play it.";
+    bubbleText.innerHTML =
+      "Hover over the items on your righ (like: tree ,cat)<br><br>to choose a surah, and click on one<br><br>if you want to play it.";
   } else {
     quackSound.play();
   }
@@ -683,15 +773,18 @@ document.querySelector("#sun").addEventListener("click", (event) => {
 });
 
 document.querySelector("#pauseBtn").addEventListener("click", (event) => {
+  clickSound.play();
   surah.pause();
 });
 
 document.querySelector("#stopBtn").addEventListener("click", (event) => {
+  clickSound();
   surah.pause();
   quranControllers.style.display = "none";
   speechBubble.style.display = "none";
 });
 document.querySelector("#playbtn").addEventListener("click", (event) => {
+  clickSound();
   surah.play();
 });
 
@@ -718,10 +811,6 @@ function countDown(endTime, key, mode) {
         }, 7000);
       }
       return;
-      emmaPhoto.src = "Assets/wateringEmma1.png";
-      emmaPhoto.style.width = "80px";
-      emma.style.right = "48%";
-      emma.style.top = "77.1%";
     }
     if (finshTask == true) {
       localStorage.removeItem(key);
@@ -736,13 +825,6 @@ function countDown(endTime, key, mode) {
       document.querySelector("#taskMins").textContent = "00";
       document.querySelector("#taskSec").textContent = "00";
       return;
-    }
-
-    if (distance < 58993) {
-      emmaPhoto.src = "Assets/emmaChecktime.png";
-      emmaPhoto.style.width = "150px";
-      emma.style.right = "22rem";
-      emma.style.top = "36rem";
     }
 
     let hours = Math.floor(
@@ -809,6 +891,8 @@ function toHome(event) {
   emmaHome = true;
   clickedDuck = false;
   emmastudy = false;
+  clickedEmma = false;
+  clearEmmaTimeouts();
   homePage.style.display = "flex";
   homeBtn.style.display = "none";
   homePhotos.style.display = "flex";
@@ -826,15 +910,3 @@ function toHome(event) {
   taskCheckpage.style.display = "none";
 }
 homeBtn.addEventListener("click", toHome);
-
-// var test = document.getElementById("test");
-// var Typewriter = new Typewriter(test, {
-//   loop: false,
-//   delay: 75,
-// });
-
-// Typewriter.pauseFor(2002)
-//   .typeString(
-//     "to your Pixel Garden - your very own safe and cozy space.🌸 First,let me introduce you to Emma. She’ll be your companion here — eac you’ll check in with her and share whether you completed your task will be here to give you gentle support as you grow the habit yo to build. 🌱 🤩 If you succeed, she’ll reward you with a bea flower 🌹😍 😡 But if you skip it… you might just meet the Angr 🔪🦆 Another thing — be careful not to make Emma angry…she  doesn’t like being clicked 😉 Now that you know the rules, let’s  the habit or task you want to start building. 🌟"
-//   )
-//   .start();
