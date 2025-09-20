@@ -30,12 +30,21 @@ getWeatherData().then((weatherData) => {
     main: { temp },
     weather: [{ id, main }],
   } = weatherData;
-
   document.querySelector("#weather").textContent = `${(temp - 273.15).toFixed(
     1
   )}°C`;
-
   weatherID = id;
+
+  setInterval(function () {
+    const {
+      main: { temp },
+      weather: [{ id, main }],
+    } = weatherData;
+    document.querySelector("#weather").textContent = `${(temp - 273.15).toFixed(
+      1
+    )}°C`;
+    weatherID = id;
+  }, 1000 * 60 * 3);
 
   if (id >= 200 && id < 300) {
     sun.src = "Assets/storm.png";
@@ -134,7 +143,7 @@ function clock() {
     document.querySelector("#minsClock").textContent = `${String(
       clockNow.getMinutes()
     ).padStart(2, "0")}`;
-  }, 6000);
+  }, 1000);
   document.querySelector("#day").textContent = new Date().getDate();
   document.querySelector("#month").textContent = new Date().getMonth() + 1;
   document.querySelector("#year").textContent = new Date().getFullYear();
@@ -149,7 +158,20 @@ function clock() {
   ];
   document.querySelector("#weekday").textContent = days[new Date().getDay()];
 }
+
 clock();
+
+let studyFlowers = 0;
+let taskFlowers = 0;
+if (date == 0) {
+  studyFlowers = 0;
+  taskFlowers = 0;
+}
+date = new Date().getDay();
+console.log(date);
+document.querySelector("#report").innerHTML = `IN ${
+  date + 1
+} DAYS<br><br>• ${taskFlowers} Tasks completed<br><br>• ${studyFlowers} Hours of study`;
 
 const clickSound = new Audio("soundEffects/click1.mp3");
 
@@ -226,8 +248,8 @@ emmaPhoto.addEventListener("click", (event) => {
       bubbleText.textContent = "";
       emma.style.top = "36rem";
       event.target.src = "Assets/angryEmma.png";
-      bubbleText.textContent =
-        "How you dare ?! You think you can click me and get away with it?! I'll show you!";
+      bubbleText.innerHTML =
+        "How you dare ?! You think you can click me<br><br>and get away with it?! I'll show you!";
       clickedEmma = true;
 
       emmaTimeouts.push(
@@ -264,7 +286,7 @@ emmaPhoto.addEventListener("click", (event) => {
 
 // the start btn that moves you to the name page
 
-let firstTime = false;
+let firstTime = true;
 
 function toStartPage() {
   document.querySelector("#startPage").style.display = "flex";
@@ -624,7 +646,6 @@ let surah;
 let emmastudy = false;
 let flowers = 0;
 let ducks = 0;
-let studyhours = 0;
 
 function toStudy(event) {
   clickSound.play();
@@ -778,13 +799,14 @@ document.querySelector("#pauseBtn").addEventListener("click", (event) => {
 });
 
 document.querySelector("#stopBtn").addEventListener("click", (event) => {
-  clickSound();
+  clickSound.play();
   surah.pause();
   quranControllers.style.display = "none";
   speechBubble.style.display = "none";
 });
-document.querySelector("#playbtn").addEventListener("click", (event) => {
-  clickSound();
+
+document.getElementById("playBtn").addEventListener("click", (event) => {
+  clickSound.play();
   surah.play();
 });
 
@@ -819,6 +841,7 @@ function countDown(endTime, key, mode) {
       document.querySelector("#taskStart").style.display = "flex";
       document.querySelector("#taskCheckbtn").style.display = "none";
       flowers++;
+      taskFlowers++;
       flowerCounter.textContent = flowers;
       flowerSoundeffect.play();
       document.querySelector("#taskHours").textContent = "00";
@@ -875,7 +898,7 @@ document.querySelector("#timerBtn").addEventListener("click", (event) => {
     alarm.play();
     timerBtn.style.display = "flex";
     flowers++;
-    studyhours++;
+    studyFlowers++;
   }, 1000 * 60);
 
   setTimeout(() => {
