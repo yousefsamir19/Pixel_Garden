@@ -257,16 +257,17 @@
       </button>
       <p id="taskText"></p>
       <p id="taskInstraction">
-        You have 24 hours to<br />complete your task. If you succeed,<br />
-        you’ll earn a flower 🌸.<br />
-        If you fail,<br />you’ll get a duck 🦆. <br />
-        Once you complete a task,<br />
-        you can add a new one.
+        Note: You have 24 hours to complete your task. If you succeed, you’ll<br /><br />earn
+        a flower 🌸. If you fail, you’ll get a duck 🦆. Once you complete a
+        <br /><br />
+        task, you can add a new one.
       </p>
       <section id="taskCheckbtn">
-        <p id="taskChecktext">Did you finsh your task ?</p>
+        <p id="taskChecktext">Did you finsh the task ?</p>
 
-        <button id="yesBtn" class="stopBtn pixel-corners--wrapper">Yes</button>
+        <button id="yesBtn" class="startTimer pixel-corners--wrapper">
+          Yes
+        </button>
       </section>
 
       <button id="changeBtn" class="startTimer pixel-corners--wrapper">
@@ -320,6 +321,19 @@
         </button>
         <button id="stopBtn" class="stopBtn pixel-corners--wrapper">
           Stop
+        </button>
+      </section>
+
+      <button id="fireplaceBtn" class="startTimer pixel-corners--wrapper">
+        Fire Place
+      </button>
+
+      <section id="fireplacePage">
+        <video id="firePlaceVideo" autoplay loop muted>
+          <source src="videos/firePlace.WebM" />
+        </video>
+        <button id="backStudyBtn" class="start-button pixel-corners--wrapper">
+          Back
         </button>
       </section>
     </section>
