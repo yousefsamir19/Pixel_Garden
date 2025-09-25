@@ -1,5 +1,5 @@
 // parallax effect for the background
-// localStorage.clear();
+localStorage.clear();
 document.addEventListener("mousemove", parallax);
 
 function parallax(event) {
@@ -357,11 +357,18 @@ function goToRulesPage() {
   clickSound.play();
   if (!username) {
     username = document.querySelector("#nameInput").value;
+    if (username == "esraa" || username == "Esraa") {
+      username = "Esro2a";
+    }
+    if (username == "mariam" || username == "Mariam") {
+      username = "Marioma";
+    }
+
     localStorage.setItem("username", username);
   }
   namePage.style.display = "none";
   rulesPage.style.display = "flex";
-  bubbleText.prepend(`Hey ${username},`);
+  bubbleText.prepend(`Hey ${username}, `);
   var rulesText = document.querySelector("#rulesText");
   var rulesTexteffect = new Typewriter(rulesText, {
     loop: false,
@@ -707,6 +714,7 @@ const surahYaseen = new Audio("soundEffects/surahYaseen.mp3");
 const surahYousef = new Audio("soundEffects/surahYousef.mp3");
 const surahYousefmahr = new Audio("soundEffects/surahYousefmahr.mp3");
 const quackSound = new Audio("soundEffects/quack.mp3");
+const quackSound2 = new Audio("soundEffects/quack2.mp3");
 const alarm = new Audio("soundEffects/alarm.mp3");
 const flowerSoundeffect = new Audio("soundEffects/flowerGainEffect.mp3");
 const fireSound = new Audio("soundEffects/fireSound.mp3");
@@ -723,11 +731,11 @@ function toStudy(event) {
   document.querySelector("#tree").style.display = "none";
   document.querySelector("#spiderFlower").style.display = "none";
   studyPage.style.display = "flex";
-  emmaPhoto.src = "Assets/studyEmma.png";
+  emmaPhoto.src = "Assets/sEmma.png";
   emmaPhoto.style.width = "110px";
   emma.style.top = "71%";
   emma.style.right = "45.9%";
-  bubbleText.textContent = `Hey,${username} . Let's study for an hour.`;
+  bubbleText.innerHTML = `Hey, ${username}.<br><br>Let's study for an hour.`;
   speechBubble.style.display = "flex";
 
   emmaTimeouts.push(
@@ -770,11 +778,13 @@ document.querySelector("#blackDuck").addEventListener("mouseover", (event) => {
 let clickedDuck = false;
 document.querySelector("#blackDuck").addEventListener("click", (event) => {
   if (!emmaHome) {
-    clickedDuck = true;
-    clearEmmaTimeouts();
-    quackSound.play();
-    bubbleText.innerHTML =
-      "Hover over the items on your righ (like: tree ,cat)<br><br>to choose a surah, and click on one<br><br>if you want to play it.";
+    if (emmastudy) {
+      clickedDuck = true;
+      clearEmmaTimeouts();
+      quackSound.play();
+      bubbleText.innerHTML =
+        "Hover over the items on your righ (like: tree ,cat)<br><br>to choose a surah, and click on one<br><br>if you want to play it.";
+    } else quackSound.play();
   } else {
     quackSound.play();
   }
@@ -806,7 +816,7 @@ document.querySelector("#yellowDuck").addEventListener("click", (event) => {
     surah.play();
     quranControllers.style.display = "flex";
   } else {
-    quackSound.play();
+    quackSound2.play();
   }
 });
 
@@ -820,6 +830,14 @@ document.querySelector("#fire").addEventListener("click", (event) => {
     surah = surahElnour;
     surah.play();
     quranControllers.style.display = "flex";
+  }
+  if (emmaHome) {
+    if (!clickedDuck) {
+      fireSound.play();
+      setTimeout(() => {
+        fireSound.pause();
+      }, 5000);
+    }
   }
 });
 
