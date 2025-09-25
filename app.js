@@ -1,5 +1,5 @@
 // parallax effect for the background
-localStorage.clear();
+//localStorage.clear();
 document.addEventListener("mousemove", parallax);
 
 function parallax(event) {
